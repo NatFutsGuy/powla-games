@@ -13,6 +13,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="img/favicon-64.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <style>html{color-scheme:dark}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta name="copyright" content="© 2026 Powla Games">
 <title>Powla Games Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,6 +92,13 @@ section { display: grid; gap: 22px; scroll-margin-top: 16px; }
 figure { margin: 0; background: var(--panel); border: 2px solid var(--line); border-radius: 12px; overflow: hidden; display: grid; }
 figure img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--line); border-bottom: 2px solid var(--line); }
 figure.tall img { aspect-ratio: 4 / 5; object-fit: cover; object-position: top; }
+figure { position: relative; }
+figure::after { content: "© Powla Games"; position: absolute; top: 8px; right: 8px; padding: 2px 8px; border-radius: 6px; background: rgba(0,0,0,.55); color: rgba(255,255,255,.85); font-size: 0.72rem; font-weight: 600; letter-spacing: .02em; pointer-events: none; }
+.game { position: relative; }
+.game:not(.next)::after { content: "© Powla Games"; position: absolute; top: 8px; right: 8px; padding: 2px 8px; border-radius: 6px; background: rgba(0,0,0,.55); color: rgba(255,255,255,.85); font-size: 0.72rem; font-weight: 600; pointer-events: none; }
+sup.tm { font-size: 0.4em; vertical-align: super; margin-left: 0.08em; font-family: inherit; }
+footer .legal { grid-column: 1 / -1; display: grid; gap: 4px; margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 0.8rem; line-height: 1.5; }
+footer .legal p { margin: 0; }
 figcaption { padding: 12px 14px 14px; display: grid; gap: 2px; font-size: 0.92rem; color: var(--muted); }
 figcaption strong { color: var(--fg); font-weight: 700; }
 
@@ -168,60 +176,192 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px
 button.btn { font: 700 1rem var(--body); cursor: pointer; }
 footer { border-top: 2px solid var(--line); padding-top: 24px; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: center; color: var(--muted); font-size: 0.9rem; }
 footer img { width: 56px; height: auto; grid-row: span 2; }
+
+/* ===== v3: sticky nav, calmer layout, motion ===== */
+:root { --nav-h: 60px; --ease: cubic-bezier(.65,0,.35,1); }
+html { scroll-padding-top: calc(var(--nav-h) + 12px); }
+.wrap { gap: 112px; padding-top: 88px; padding-bottom: 72px; }
+section { gap: 28px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.muted { color: var(--muted); }
+
+/* nav */
+.nav { position: sticky; top: 0; z-index: 50; margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding: 0 max(16px, env(safe-area-inset-left, 0px));
+  background: rgba(21, 17, 15, .82); backdrop-filter: blur(12px) saturate(140%); -webkit-backdrop-filter: blur(12px) saturate(140%); border-bottom: 1px solid rgba(255,255,255,.07); }
+.nav-in { max-width: 1120px; margin: 0 auto; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--fg); font-family: var(--display); font-size: 1.15rem; letter-spacing: .04em; white-space: nowrap; }
+.brand img { width: 38px; height: auto; }
+.brand sup.tm { font-size: .5em; }
+#nav-links { display: flex; align-items: center; gap: 4px; }
+#nav-links a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: .95rem; padding: 8px 12px; border-radius: 8px; position: relative; transition: color .2s; }
+#nav-links a:hover { color: var(--fg); }
+#nav-links a::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 3px; height: 2px; background: var(--yellow); border-radius: 2px; transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease); }
+#nav-links a.active { color: var(--fg); }
+#nav-links a.active::after, #nav-links a:hover::after { transform: scaleX(1); }
+#nav-links a.nav-cta { background: var(--yellow); color: var(--ink); margin-left: 8px; box-shadow: 0 3px 0 var(--ink); border: 2px solid var(--ink); padding: 6px 14px; }
+#nav-links a.nav-cta::after { display: none; }
+.menu-btn { display: none; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; border-radius: 8px; place-items: center; }
+.menu-btn .bars, .menu-btn .bars::before, .menu-btn .bars::after { display: block; width: 22px; height: 2px; background: var(--fg); border-radius: 2px; position: relative; transition: transform .3s var(--ease), background .2s; }
+.menu-btn .bars::before, .menu-btn .bars::after { content: ""; position: absolute; left: 0; }
+.menu-btn .bars::before { top: -7px; } .menu-btn .bars::after { top: 7px; }
+.menu-btn[aria-expanded="true"] .bars { background: transparent; }
+.menu-btn[aria-expanded="true"] .bars::before { transform: translateY(7px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] .bars::after { transform: translateY(-7px) rotate(-45deg); }
+@media (max-width: 860px) {
+  .menu-btn { display: grid; }
+  #nav-links { position: absolute; left: 0; right: 0; top: var(--nav-h); flex-direction: column; align-items: stretch; gap: 0; padding: 8px 16px 16px;
+    background: rgba(21, 17, 15, .97); border-bottom: 1px solid var(--line); box-shadow: 0 18px 30px rgba(0,0,0,.4);
+    visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity .25s, transform .25s var(--ease), visibility 0s .25s; }
+  #nav-links.open { visibility: visible; opacity: 1; transform: none; transition: opacity .25s, transform .25s var(--ease); }
+  #nav-links a { padding: 13px 8px; font-size: 1.05rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+  #nav-links a::after { display: none; }
+  #nav-links a.active { color: var(--yellow); }
+  #nav-links a.nav-cta { margin: 12px 0 0; text-align: center; border-bottom: 2px solid var(--ink); }
+}
+
+/* hero */
+.hero { margin-bottom: 0; padding-top: 64px; padding-bottom: 80px; overflow: hidden; isolation: isolate; }
+.hero::before { content: ""; position: absolute; inset: -40%; z-index: -1; pointer-events: none;
+  background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(255,255,255,.05) 0deg 6deg, transparent 6deg 18deg); }
+.hero .lede { max-width: 46ch; }
+.hero h1 { font-size: clamp(2.8rem, 8vw, 5.4rem); }
+@media (prefers-reduced-motion: no-preference) {
+  .hero::before { animation: spin 90s linear infinite; }
+  .hero .logo { animation: bob 6s ease-in-out infinite; }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes bob { 50% { transform: translateY(-10px) rotate(-1.5deg); } }
+
+/* marquee ribbon */
+.marquee { margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))); background: var(--ink); border-bottom: 3px solid var(--red-deep); overflow: hidden; transform: rotate(-1.2deg) translateY(-14px); box-shadow: 0 8px 24px rgba(0,0,0,.35); position: relative; z-index: 2; }
+.marquee-track { display: flex; width: max-content; gap: 0; padding: 12px 0 9px; }
+.marquee span { font-family: var(--display); color: var(--yellow); font-size: 1.15rem; letter-spacing: .06em; padding: 0 22px; white-space: nowrap; }
+.marquee span::after { content: "★"; color: var(--red); margin-left: 44px; font-size: .9em; }
+@media (prefers-reduced-motion: no-preference) { .marquee-track { animation: marquee 38s linear infinite; } }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* headings */
+.head { max-width: 760px; }
+.sub-head { margin-top: 24px; }
+.sub-head h3 { font-size: clamp(1.4rem, 3vw, 1.9rem); }
+
+/* game cards with depth */
+.game { transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .3s; }
+.game img { transition: transform .8s var(--ease); }
+.game:not(.next) { overflow: hidden; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .game:not(.next):hover { transform: translateY(-8px); box-shadow: 0 22px 40px rgba(0,0,0,.45), 0 0 0 2px var(--yellow); border-color: transparent; }
+  .game:not(.next):hover img { transform: scale(1.06); }
+  figure { transition: transform .45s var(--ease), box-shadow .45s var(--ease); }
+  figure:hover { transform: translateY(-4px); box-shadow: 0 16px 30px rgba(0,0,0,.4); }
+  figure img { transition: transform .8s var(--ease); }
+  figure:hover img { transform: scale(1.04); }
+}
+figure, .game { isolation: isolate; }
+figure::after, .game:not(.next)::after { z-index: 2; }
+
+/* work groups */
+.work { display: grid; gap: 20px; }
+h3.group { font-family: var(--display); font-size: 1.35rem; letter-spacing: .03em; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+h3.group span { font-family: var(--mono); font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--yellow); }
+
+/* accordions */
+details.more, .faq details, .price-item { background: var(--panel); border: 2px solid var(--line); border-radius: 12px; overflow: hidden; }
+details summary { list-style: none; cursor: pointer; position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details.more > summary, .faq summary { padding: 16px 52px 16px 18px; font-weight: 700; font-size: 1.02rem; }
+details > summary::after { content: ""; position: absolute; right: 20px; top: 50%; width: 10px; height: 10px; border-right: 2.5px solid var(--yellow); border-bottom: 2.5px solid var(--yellow); transform: translateY(-70%) rotate(45deg); transition: transform .35s var(--ease); }
+details[open] > summary::after { transform: translateY(-30%) rotate(-135deg); }
+details summary:hover { background: rgba(255,255,255,.03); }
+details summary:focus-visible { outline: 3px solid var(--yellow); outline-offset: -3px; }
+.more-in { padding: 4px 18px 22px; display: grid; gap: 18px; }
+.faq { display: grid; gap: 10px; }
+.faq ul { margin: 0; padding: 0 18px 18px 38px; color: var(--muted); display: grid; gap: 6px; }
+
+/* price accordions */
+.price-list { display: grid; gap: 10px; }
+.price-item summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 54px 14px 18px; }
+.pi-name { display: grid; }
+.pi-name strong { font-family: var(--display); font-weight: 400; font-size: 1.2rem; letter-spacing: .03em; }
+.pi-name .sub { color: var(--muted); font-size: .85rem; }
+.pi-price { font-family: var(--display); color: var(--yellow); font-size: 1.5rem; letter-spacing: .03em; white-space: nowrap; }
+.pi-price small { font-family: var(--body); font-size: .75rem; color: var(--muted); letter-spacing: 0; text-transform: uppercase; font-weight: 700; margin-right: 4px; }
+.pi-body { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; padding: 4px 18px 20px; border-top: 1px solid var(--line); padding-top: 16px; }
+.pi-body p { color: var(--muted); font-size: .95rem; margin-top: 4px; }
+
+/* text links instead of second buttons */
+.text-link { color: var(--yellow); font-weight: 700; text-decoration: none; padding: 10px 4px; border-bottom: 2px solid transparent; transition: border-color .2s; }
+.text-link:hover { border-bottom-color: var(--yellow); }
+.text-link::after { content: " →"; }
+.actions { align-items: center; }
+
+/* back to top */
+.to-top { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: max(16px, env(safe-area-inset-bottom, 0px)); z-index: 60; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; background: var(--yellow); color: var(--ink); text-decoration: none; font-size: 1.4rem; font-weight: 800; border: 2px solid var(--ink); box-shadow: 0 4px 0 var(--ink); opacity: 0; transform: translateY(12px); transition: opacity .3s, transform .3s var(--ease); pointer-events: none; }
+.to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+
+/* reveal (only when JS + motion are on; content is visible without them) */
+.anim .reveal { opacity: 0; transform: translateY(28px); }
+
+footer { margin-top: 8px; }
+@media (max-width: 600px) {
+  ol.steps { gap: 10px; }
+  ol.steps li { grid-template-columns: 40px 1fr; column-gap: 14px; row-gap: 2px; padding: 14px 16px; }
+  ol.steps li::before { grid-row: span 2; margin: 0; }
+  .wrap { gap: 88px; }
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
 </style>
 </head>
 <body>
 
-<header class="hero">
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="Powla Games, back to top"><img src="img/logo.webp" width="630" height="640" alt=""><span>Powla Games<sup class="tm">™</sup></span></a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+    <nav id="nav-links" aria-label="Sections">
+      <a href="#games">Games</a>
+      <a href="#products">Products</a>
+      <a href="#hire">Hire us</a>
+      <a href="#how">How it works</a>
+      <a href="#join">Join</a>
+      <a href="#quote" class="nav-cta">Get a quote</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
   <div class="hero-in">
     <img class="logo" src="img/logo.webp" width="630" height="640" alt="Powla Games logo: red POWLA lettering on a yellow comic starburst with a GAMES ribbon">
     <div class="hero-copy">
-      <h1>Powla Games</h1>
+      <h1>Powla Games<sup class="tm">™</sup></h1>
       <span class="ribbon">Roblox games · custom builds</span>
-      <p class="lede">We make our own Roblox games, we build for other developers, and we run a fun, growing community on Discord. From a quick fix to custom game items to a whole game system, we can help.</p>
+      <p class="lede">We make our own Roblox games, build for other developers and run a fun, growing Discord community.</p>
       <div class="actions">
         <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Join our Discord</a>
-        <a class="btn ghost" href="#games">Our games</a>
-        <a class="btn ghost" href="#products">Products</a>
-        <a class="btn ghost" href="#hire">Hire us</a>
-        <a class="btn ghost" href="#quote">Get a quote</a>
+        <a class="btn ghost" href="#games">See our games</a>
       </div>
       <div class="facts">
         <span><b>Luau</b> scripting and systems</span>
         <span><b>MMO-grade</b> UI and HUD</span>
         <span>Phone, tablet, PC and controller</span>
-        <span>Paid by <b>PayPal</b>, files after payment</span>
       </div>
     </div>
   </div>
-</header>
+</section>
 
-<div class="wrap">
+<div class="marquee" aria-hidden="true"><div class="marquee-track"><span>Luau systems</span><span>MMO-grade UI</span><span>Pets and simulators</span><span>Custom items</span><span>3D art</span><span>Phone to console</span><span>Luau systems</span><span>MMO-grade UI</span><span>Pets and simulators</span><span>Custom items</span><span>3D art</span><span>Phone to console</span></div></div>
+
+<main class="wrap">
 
   <section id="games">
     <div class="head">
       <span class="label">Our games</span>
       <h2>What we're building</h2>
-      <p>Every Powla Games title lands here first. Join the Discord or our Roblox group to get into playtests before launch.</p>
+      <p>Every Powla Games title lands here first. Join the Discord to get into playtests before launch.</p>
     </div>
     <div class="games" id="game-list"></div>
-  </section>
-
-  <section id="community">
-    <div class="head">
-      <span class="label">Community</span>
-      <h2>A fun, growing Discord, and we're looking for help</h2>
-      <p>Hang out, see sneak peeks, vote on features and play our games before anyone else. We're also building the team.</p>
-    </div>
-    <div class="roles">
-      <div><span class="label">Now recruiting</span><strong>Moderators</strong><span>Keep chat friendly and safe, welcome new members and help with events. Must be 16 or older and active most days.</span></div>
-      <div><span class="label">Now recruiting</span><strong>Playtesters</strong><span>Play new builds early, find bugs and tell us what's fun and what isn't. Your feedback shapes the game.</span></div>
-      <div><span class="label">Always open</span><strong>Community</strong><span>Share builds in #showcase, talk Roblox dev in #dev-chat, and get first word on launches and events.</span></div>
-    </div>
-    <div class="actions">
-      <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Join and apply in #join-the-team</a>
-      <a class="btn ghost" href="https://www.roblox.com/communities/1043195385/Powla-Games" target="_blank" rel="noopener">Our Roblox group</a>
-    </div>
   </section>
 
   <section id="products">
@@ -233,7 +373,7 @@ footer img { width: 56px; height: auto; grid-row: span 2; }
     <article class="product">
       <div class="side">
         <span class="badge">Coming Nov 10, 2026</span>
-        <h3>Powla UI Kit</h3>
+        <h3>Powla UI Kit<sup class="tm">™</sup></h3>
         <p>MMO-grade UI for Roblox.</p>
         <p class="price">$9.99 <span>at launch</span></p>
       </div>
@@ -254,131 +394,148 @@ footer img { width: 56px; height: auto; grid-row: span 2; }
   <section id="hire">
     <div class="head">
       <span class="label">Hire us</span>
-      <h2>Fixes, custom items and whole systems for your game</h2>
-      <p>Stuck on a bug? Need custom weapons, tools, pets or gear? Want a full shop, quest or combat system? We build it, test it in Studio and hand it over clean. Everything below comes from our own games.</p>
+      <h2>Fixes, custom items and whole systems</h2>
+      <p>Bugs, custom weapons, pets and gear, or a full shop, quest or combat system. We build it, test it in Studio and hand it over clean. Everything below comes from our own games.</p>
     </div>
-  </section>
 
-  <section id="work">
-    <div class="head">
-      <span class="label">Mines of Morin</span>
-      <h2>UI and HUD</h2>
-      <p>Full MMO interface: action bars, windows, shops, quests and a player edit mode. Every screen scales from phone to ultrawide.</p>
+    <div class="work">
+      <h3 class="group">HeroValley<sup class="tm">™</sup> <span>UI and HUD</span></h3>
+      <div class="grid wide">
+        <figure><img src="img/ui-map.jpg" alt="World map window open over the game, with character panels on both sides and two rows of ability buttons" loading="lazy"><figcaption><strong>World map and character panels</strong>Live zone map and character panels over a two-row action bar with cooldowns.</figcaption></figure>
+        <figure><img src="img/ui-shop.jpg" alt="In-game shop window with category list, item cards and a preview panel" loading="lazy"><figcaption><strong>In-game shop</strong>Categories, item cards, live 3D try-on and server-checked purchases.</figcaption></figure>
+        <figure><img src="img/ui-quest.jpg" alt="Quest dialogue window with objectives and rewards, plus a quest tracker on the right" loading="lazy"><figcaption><strong>Quest dialogue and tracker</strong>Objectives and rewards, plus a tracker that updates live.</figcaption></figure>
+        <figure><img src="img/ui-edit.jpg" alt="HUD edit mode showing outlined HUD blocks and a moved boss health frame" loading="lazy"><figcaption><strong>Player edit mode</strong>Drag, snap and resize every HUD block. Saved per player, never off screen.</figcaption></figure>
+      </div>
+      <details class="more">
+        <summary>More from HeroValley, Pirates Cove and our 3D art</summary>
+        <div class="more-in">
+          <h3 class="group">HeroValley <span>Characters</span></h3>
+          <div class="grid">
+            <figure class="tall"><img src="img/ui-create.jpg" alt="Character creator with class buttons, sliders and skin tone swatches" loading="lazy"><figcaption><strong>Character creator</strong>Classes, sliders, skin tones and outfits in one phone-sized view.</figcaption></figure>
+            <figure class="tall"><img src="img/ui-profession.jpg" alt="Character sheet with a 3D character preview and a stats list" loading="lazy"><figcaption><strong>Character sheet</strong>Live 3D preview, gear slots and a full stat breakdown.</figcaption></figure>
+          </div>
+          <h3 class="group">HeroValley <span>Gameplay and world</span></h3>
+          <div class="grid">
+            <figure><img src="img/game-combat.jpg" alt="Player in open countryside with the action bar and minimap on screen" loading="lazy"><figcaption><strong>Open-world combat</strong>Abilities, cooldowns and a live minimap.</figcaption></figure>
+            <figure><img src="img/game-boss.jpg" alt="Village square with a quest marker above a signpost and torches lit" loading="lazy"><figcaption><strong>Quest hub</strong>Town square with quest givers and markers.</figcaption></figure>
+            <figure><img src="img/game-gear.jpg" alt="Gear preview window showing an armoured character in a town" loading="lazy"><figcaption><strong>Gear preview</strong>Try armour on before you equip it.</figcaption></figure>
+          </div>
+          <h3 class="group">Pirates Cove<sup class="tm">™</sup> <span>Simulator systems</span></h3>
+          <div class="grid">
+            <figure><img src="img/pc-economy.jpg" alt="Crew window with a grid of pets and a combine pets portal behind it" loading="lazy"><figcaption><strong>Pet crew and combining</strong>Equip, sort and fuse pets into stronger ones.</figcaption></figure>
+            <figure><img src="img/pc-rebirth.jpg" alt="Rebirth window showing multipliers and bulk rebirth buttons" loading="lazy"><figcaption><strong>Rebirths</strong>Multipliers, bulk and auto rebirth.</figcaption></figure>
+            <figure><img src="img/pc-chests2.jpg" alt="Two treasure chests on an island with an odds board above them" loading="lazy"><figcaption><strong>Chest hatching</strong>Odds board, reveal scene and auto-delete.</figcaption></figure>
+            <figure><img src="img/pc-fleet.jpg" alt="Pirate ship with crew pets on deck sailing on blue water" loading="lazy"><figcaption><strong>Fleet</strong>Your crew rides with you on your ship.</figcaption></figure>
+          </div>
+          <h3 class="group">3D art <span>Models and buildings, made in Blender with our own generators</span></h3>
+          <div class="grid">
+            <figure><img src="img/art-stilthouse.jpg" alt="Wooden stilt house with a staircase, rendered in soft daylight" loading="lazy"><figcaption><strong>Stilt house</strong>Multi-storey building kit piece.</figcaption></figure>
+            <figure><img src="img/art-rock.jpg" alt="Two large ore rocks next to a player-sized grey figure for scale" loading="lazy"><figcaption><strong>Ore rocks</strong>Mining nodes, shown next to a player for scale.</figcaption></figure>
+            <figure><img src="img/art-lamp.jpg" alt="Wooden dock with lamp posts rendered in daylight" loading="lazy"><figcaption><strong>Dock with lamps</strong>Props that light up at night.</figcaption></figure>
+          </div>
+        </div>
+      </details>
     </div>
-    <div class="grid wide">
-      <figure><img src="img/ui-map.jpg" alt="World map window open over the game, with character panels on both sides and two rows of ability buttons" loading="lazy"><figcaption><strong>World map and character panels</strong>Zone map with live markers, flanked by character panels, over a two-row action bar with cooldowns. Built from code, so it stays sharp at any resolution.</figcaption></figure>
-      <figure><img src="img/ui-shop.jpg" alt="In-game shop window with category list, item cards and a preview panel" loading="lazy"><figcaption><strong>In-game shop</strong>Category list, item cards, a live 3D try-on preview and a buy panel wired to server-checked purchases.</figcaption></figure>
-      <figure><img src="img/ui-quest.jpg" alt="Quest dialogue window with objectives and rewards, plus a quest tracker on the right" loading="lazy"><figcaption><strong>Quest dialogue and tracker</strong>NPC dialogue with objectives, XP and item rewards, plus a side tracker that updates live as you kill, collect and travel.</figcaption></figure>
-      <figure><img src="img/ui-edit.jpg" alt="HUD edit mode showing outlined HUD blocks and a moved boss health frame" loading="lazy"><figcaption><strong>Player edit mode</strong>Players drag, snap and resize every HUD block. Layouts save per player, re-fit when the screen changes, and can never end up off screen.</figcaption></figure>
-    </div>
-    <div class="grid">
-      <figure class="tall"><img src="img/ui-create.jpg" alt="Character creator with class buttons, sliders and skin tone swatches" loading="lazy"><figcaption><strong>Character creator</strong>Class picker, body and face sliders, skin tones and outfits, laid out to fit a phone screen in one view.</figcaption></figure>
-      <figure class="tall"><img src="img/ui-profession.jpg" alt="Character sheet with a 3D character preview and a stats list" loading="lazy"><figcaption><strong>Character sheet</strong>Live 3D preview of your character, gear slots and a full stat breakdown that updates as you equip items.</figcaption></figure>
-    </div>
-  </section>
 
-  <section>
-    <div class="head">
-      <span class="label">Mines of Morin</span>
-      <h2>Gameplay and world</h2>
-      <p>Combat, quests, gear and a hand-built open world, all running on our own server-checked systems.</p>
-    </div>
-    <div class="grid">
-      <figure><img src="img/game-combat.jpg" alt="Player in open countryside with the action bar and minimap on screen" loading="lazy"><figcaption><strong>Open-world combat</strong>Abilities, cooldowns and a live minimap.</figcaption></figure>
-      <figure><img src="img/game-boss.jpg" alt="Village square with a quest marker above a signpost and torches lit" loading="lazy"><figcaption><strong>Quest hub</strong>Town square with quest givers and markers.</figcaption></figure>
-      <figure><img src="img/game-gear.jpg" alt="Gear preview window showing an armoured character in a town" loading="lazy"><figcaption><strong>Gear preview</strong>Try armour on before you equip it.</figcaption></figure>
-    </div>
-  </section>
-
-  <section>
-    <div class="head">
-      <span class="label">Pirates Cove</span>
-      <h2>Simulator systems</h2>
-      <p>Pets, chests, rebirths and a crew you sail with. Saving, shop and economy all built by us.</p>
-    </div>
-    <div class="grid">
-      <figure><img src="img/pc-economy.jpg" alt="Crew window with a grid of pets and a combine pets portal behind it" loading="lazy"><figcaption><strong>Pet crew and combining</strong>Equip, sort and fuse pets into stronger ones.</figcaption></figure>
-      <figure><img src="img/pc-rebirth.jpg" alt="Rebirth window showing multipliers and bulk rebirth buttons" loading="lazy"><figcaption><strong>Rebirths</strong>Multipliers, bulk and auto rebirth.</figcaption></figure>
-      <figure><img src="img/pc-chests2.jpg" alt="Two treasure chests on an island with an odds board above them" loading="lazy"><figcaption><strong>Chest hatching</strong>Odds board, reveal scene and auto-delete.</figcaption></figure>
-      <figure><img src="img/pc-fleet.jpg" alt="Pirate ship with crew pets on deck sailing on blue water" loading="lazy"><figcaption><strong>Fleet</strong>Your crew rides with you on your ship.</figcaption></figure>
-    </div>
-  </section>
-
-  <section>
-    <div class="head">
-      <span class="label">3D art</span>
-      <h2>Models and buildings</h2>
-      <p>Realistic props and buildings made in Blender with our own generators, then placed in game.</p>
-    </div>
-    <div class="grid">
-      <figure><img src="img/art-stilthouse.jpg" alt="Wooden stilt house with a staircase, rendered in soft daylight" loading="lazy"><figcaption><strong>Stilt house</strong>Multi-storey building kit piece.</figcaption></figure>
-      <figure><img src="img/art-rock.jpg" alt="Two large ore rocks next to a player-sized grey figure for scale" loading="lazy"><figcaption><strong>Ore rocks</strong>Mining nodes, shown next to a player for scale.</figcaption></figure>
-      <figure><img src="img/art-lamp.jpg" alt="Wooden dock with lamp posts rendered in daylight" loading="lazy"><figcaption><strong>Dock with lamps</strong>Props that light up at night.</figcaption></figure>
-    </div>
-  </section>
-
-  <section>
-    <div class="head">
+    <div class="head sub-head">
       <span class="label">Starter prices</span>
-      <h2>What it costs</h2>
-      <p>Prices in USD. Jobs start at $100; quick fixes start at $30. Every quote lists exactly what's included before you pay anything. Hourly work is $35 an hour, prepaid in blocks of 5 hours or more.</p>
+      <h3>What it costs</h3>
+      <p>USD. Jobs start at $100, quick fixes at $30, hourly work is $35/hour prepaid in 5-hour blocks. Every quote lists exactly what's included before you pay.</p>
     </div>
-    <div class="prices">
-      <table>
-        <thead><tr><th>Job</th><th>What we build</th><th>What you get</th><th>From</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Quick fix</strong><span class="sub">Bugs and tune-ups</span></td>
-            <td class="what">Broken scripts, errors in the output window, saving that loses data, remotes that lag or can be abused, UI that breaks on phones, small balance tweaks.</td>
-            <td class="what">The cause found and fixed, a short note on what was wrong, and a check that nothing else broke.</td>
-            <td class="price">$30</td></tr>
-          <tr><td><strong>Feature</strong><span class="sub">One system, done properly</span></td>
-            <td class="what">Shops with game passes and developer products, global leaderboards, DataStore saving with session locks, daily rewards and streaks, codes, badges, settings menus.</td>
-            <td class="what">Server-checked Luau that exploiters can't spoof, purchase receipts handled safely, and a video of it working in Studio.</td>
-            <td class="price">$100</td></tr>
-          <tr><td><strong>UI screen</strong><span class="sub">Menus, HUDs and windows</span></td>
-            <td class="what">Shops, inventories, quest logs, maps, character screens, action bars and HUDs, styled to match your game's current theme or a brand-new look.</td>
-            <td class="what">Scale-based layouts tested on phone, tablet, PC and controller, smooth open and close motion, and colours and fonts set in one place so you can restyle it later.</td>
-            <td class="price">$100</td></tr>
-          <tr><td><strong>Full system</strong><span class="sub">The core of a game</span></td>
-            <td class="what">Inventory and equipment, pets with hatching and fusing, rebirths and upgrades, quests and dialogue, round-based games, combat with abilities and cooldowns, trading.</td>
-            <td class="what">A clean module layout, saving and migrations built in, anti-exploit checks on the server, tuning values in one table, and milestone videos as each part lands.</td>
-            <td class="price">$250</td></tr>
-          <tr><td><strong>Custom item</strong><span class="sub">Weapons, tools, pets, gear</span></td>
-            <td class="what">A sword with combos, a fishing rod, a pet that follows and levels up, a vehicle, armour sets, cosmetics: modelled, scripted and balanced for your game.</td>
-            <td class="what">The model, its scripts and effects, safe server checks, and settings you can tune without touching code.</td>
-            <td class="price">$100</td></tr>
-          <tr><td><strong>Build</strong><span class="sub">Maps and 3D art</span></td>
-            <td class="what">Lobbies, map areas, towns and props, low-poly to realistic, made in Blender or Studio to fit your game's art style.</td>
-            <td class="what">Grounded, scaled and lit in your place, kept within a part and triangle budget so it runs well on phones.</td>
-            <td class="price">$100</td></tr>
-          <tr><td><strong>Special request</strong><span class="sub">Anything not listed</span></td>
-            <td class="what">Something unusual, a mix of the above, or a whole feature set for your game. Describe it in the Special request form below.</td>
-            <td class="what">A custom quote with the full scope, milestones and a ready-by date before you pay anything.</td>
-            <td class="price">$100</td></tr>
-        </tbody>
-      </table>
+    <div class="price-list">
+      <details class="price-item">
+        <summary><span class="pi-name"><strong>Quick fix</strong><span class="sub">Bugs and tune-ups</span></span><span class="pi-price"><small>from</small> $30</span></summary>
+        <div class="pi-body"><div><span class="label">What we build</span><p>Broken scripts, output errors, saving that loses data, laggy or abusable remotes, UI that breaks on phones, small balance tweaks.</p></div><div><span class="label">What you get</span><p>The cause found and fixed, a short note on what was wrong, and a check that nothing else broke.</p></div></div>
+      </details>
+      <details class="price-item">
+        <summary><span class="pi-name"><strong>Feature</strong><span class="sub">One system, done properly</span></span><span class="pi-price"><small>from</small> $100</span></summary>
+        <div class="pi-body"><div><span class="label">What we build</span><p>Shops with game passes and developer products, global leaderboards, DataStore saving with session locks, daily rewards, codes, badges, settings menus.</p></div><div><span class="label">What you get</span><p>Server-checked Luau that exploiters can't spoof, safely handled purchase receipts, and a video of it working in Studio.</p></div></div>
+      </details>
+      <details class="price-item">
+        <summary><span class="pi-name"><strong>UI screen</strong><span class="sub">Menus, HUDs and windows</span></span><span class="pi-price"><small>from</small> $100</span></summary>
+        <div class="pi-body"><div><span class="label">What we build</span><p>Shops, inventories, quest logs, maps, character screens, action bars and HUDs, in your game's theme or a new look.</p></div><div><span class="label">What you get</span><p>Layouts tested on phone, tablet, PC and controller, smooth motion, and colours and fonts set in one place.</p></div></div>
+      </details>
+      <details class="price-item">
+        <summary><span class="pi-name"><strong>Full system</strong><span class="sub">The core of a game</span></span><span class="pi-price"><small>from</small> $250</span></summary>
+        <div class="pi-body"><div><span class="label">What we build</span><p>Inventory and equipment, pets with hatching and fusing, rebirths, quests and dialogue, round-based games, ability combat, trading.</p></div><div><span class="label">What you get</span><p>Clean modules, saving and migrations, server-side anti-exploit checks, tuning in one table, and milestone videos.</p></div></div>
+      </details>
+      <details class="price-item">
+        <summary><span class="pi-name"><strong>Custom item</strong><span class="sub">Weapons, tools, pets, gear</span></span><span class="pi-price"><small>from</small> $100</span></summary>
+        <div class="pi-body"><div><span class="label">What we build</span><p>A sword with combos, a fishing rod, a levelling pet, a vehicle, armour sets, cosmetics: modelled, scripted and balanced.</p></div><div><span class="label">What you get</span><p>The model, scripts and effects, safe server checks, and settings you can tune without touching code.</p></div></div>
+      </details>
+      <details class="price-item">
+        <summary><span class="pi-name"><strong>Build</strong><span class="sub">Maps and 3D art</span></span><span class="pi-price"><small>from</small> $100</span></summary>
+        <div class="pi-body"><div><span class="label">What we build</span><p>Lobbies, map areas, towns and props, low-poly to realistic, made in Blender or Studio to fit your style.</p></div><div><span class="label">What you get</span><p>Grounded, scaled and lit in your place, within a part and triangle budget that runs well on phones.</p></div></div>
+      </details>
+      <details class="price-item">
+        <summary><span class="pi-name"><strong>Special request</strong><span class="sub">Anything not listed</span></span><span class="pi-price"><small>from</small> $100</span></summary>
+        <div class="pi-body"><div><span class="label">What we build</span><p>Something unusual, a mix of the above, or a whole feature set. Use the Special request tab in the quote form.</p></div><div><span class="label">What you get</span><p>A custom quote with full scope, milestones and a ready-by date before you pay anything.</p></div></div>
+      </details>
+    </div>
+
+    <details class="more">
+      <summary>Your look, built in: we match your game's style</summary>
+      <div class="more-in">
+        <p class="muted">Send a screenshot of your game or a reference you like and we build to it, or we design a new theme with you.</p>
+        <div class="styles">
+          <div><strong>Your theme</strong><span>Fantasy, sci-fi, cartoon, horror, cozy or bright simulator. We match your palette, fonts, corners and icons.</span></div>
+          <div><strong>One-table theming</strong><span>Colours, fonts, sizes and spacing live in one table, so a light, dark or event skin is a one-line change.</span></div>
+          <div><strong>Every screen size</strong><span>Phones with notches, tablets, PCs, ultrawides and TVs, with touch, mouse, keyboard and controller.</span></div>
+          <div><strong>Performance first</strong><span>Closed windows cost nothing, effects clean up after themselves, and a low-effects mode keeps older phones smooth.</span></div>
+        </div>
+      </div>
+    </details>
+
+    <div class="actions">
+      <a class="btn primary" href="#quote">Get a quote</a>
     </div>
   </section>
 
-  <section>
+  <section id="how">
     <div class="head">
-      <span class="label">Your look, built in</span>
-      <h2>We match your game's style</h2>
-      <p>Send us a screenshot of your game or a reference you like, and we build to it. Every piece of UI and art we make can take on your current theme, or we design a new one with you.</p>
+      <span class="label">How it works</span>
+      <h2>From request to files</h2>
     </div>
-    <div class="styles">
-      <div><strong>Your theme</strong><span>Fantasy, sci-fi, cartoon, horror, cozy or bright simulator styles. We match your palette, fonts, corners and icon style so new screens look like they were always there.</span></div>
-      <div><strong>One-table theming</strong><span>Colours, fonts, sizes and spacing live in one theme table, so switching between light, dark or a seasonal event skin is a one-line change.</span></div>
-      <div><strong>Every screen size</strong><span>Layouts adapt to phones with notches, tablets, PCs, ultrawide monitors and TVs, and support touch, mouse, keyboard and controller.</span></div>
-      <div><strong>Performance first</strong><span>Closed windows cost nothing, effects pool and clean up after themselves, and a low-effects mode keeps older phones smooth.</span></div>
+    <ol class="steps">
+      <li><strong>Tell us</strong><span>Post what you need, your budget and deadline in #commission-requests.</span></li>
+      <li><strong>Get a quote</strong><span>What's included, the price and a ready-by date.</span></li>
+      <li><strong>Pay to start</strong><span>PayPal Goods and Services. Payment terms below.</span></li>
+      <li><strong>Watch it work</strong><span>A video of it running in Studio before each remaining payment.</span></li>
+      <li><strong>Get the files</strong><span>Sent once everything is paid. Clean, commented Luau.</span></li>
+    </ol>
+    <div class="faq">
+      <details>
+        <summary>Payment terms</summary>
+        <ul>
+          <li>Under $100: paid up front.</li>
+          <li>$100 to $500: half up front, half on delivery.</li>
+          <li>Over $500: three milestones.</li>
+          <li>Hourly work: $35/hour, prepaid in blocks of 5 hours or more.</li>
+          <li>Paid by PayPal Goods and Services. Files are sent after full payment.</li>
+        </ul>
+      </details>
+      <details>
+        <summary>After delivery</summary>
+        <ul>
+          <li>Our own bugs are fixed free for 14 days.</li>
+          <li>If your game changes later and something breaks, the fix is quoted as a new job.</li>
+        </ul>
+      </details>
+      <details>
+        <summary>How we build</summary>
+        <ul>
+          <li>Designed by Powla Games and built with AI-assisted tooling, then tested in Studio and finished by us.</li>
+          <li>No exploits, cheats or anything against Roblox rules.</li>
+        </ul>
+      </details>
     </div>
   </section>
 
   <section id="quote">
     <div class="head">
       <span class="label">Get a quote</span>
-      <h2>Not quite sure? Ask for a quote</h2>
-      <p>Fill this in, copy your request, and post it in #commission-requests on our Discord. Anything special goes in the Special request tab: it gets a custom price, starting at $100.</p>
+      <h2>Tell us what you need</h2>
+      <p>Fill this in, copy your request and post it in #commission-requests on our Discord. Anything unusual goes in the Special request tab (custom price, from $100).</p>
     </div>
     <div class="quote">
       <div class="tabs" role="tablist" aria-label="Request type">
@@ -393,6 +550,7 @@ footer img { width: 56px; height: auto; grid-row: span 2; }
             <option>Feature</option>
             <option>UI screen</option>
             <option>Full system</option>
+            <option>Custom item</option>
             <option>Build</option>
             <option>Hourly block ($35/hour, 5+ hours)</option>
             <option>Not sure yet</option>
@@ -424,7 +582,7 @@ footer img { width: 56px; height: auto; grid-row: span 2; }
         <p class="error" id="q-error" hidden>Tell us what you need first, then copy the request.</p>
         <div class="actions">
           <button type="submit" class="btn primary" id="q-copy">Copy my request</button>
-          <a class="btn ghost" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Open our Discord</a>
+          <a class="text-link" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Open our Discord</a>
         </div>
         <div class="out" id="q-out-wrap" hidden>
           <label for="q-out" id="q-status">Copied. Paste it in #commission-requests.</label>
@@ -434,31 +592,44 @@ footer img { width: 56px; height: auto; grid-row: span 2; }
     </div>
   </section>
 
-  <section>
+  <section id="join">
     <div class="head">
-      <span class="label">How it works</span>
-      <h2>From request to files</h2>
+      <span class="label">Community</span>
+      <h2>Join the Discord, and the team</h2>
+      <p>Hang out, see sneak peeks, vote on features and play our games before anyone else.</p>
     </div>
-    <ol class="steps">
-      <li><strong>Tell us</strong><span>Post what you need, your budget and deadline in #commission-requests.</span></li>
-      <li><strong>Get a quote</strong><span>What's included, the price and a ready-by date.</span></li>
-      <li><strong>Pay to start</strong><span>Under $100: paid up front. $100 to $500: half up front. Over $500: three milestones. PayPal Goods and Services.</span></li>
-      <li><strong>Watch it work</strong><span>A video of it running in Studio before each remaining payment.</span></li>
-      <li><strong>Get the files</strong><span>Sent once everything is paid. Clean, commented Luau, and our bugs fixed free for 14 days.</span></li>
-    </ol>
+    <div class="roles">
+      <div><span class="label">Now recruiting</span><strong>Moderators</strong><span>Keep chat friendly and safe, welcome new members and help with events. 16 or older and active most days.</span></div>
+      <div><span class="label">Now recruiting</span><strong>Playtesters</strong><span>Play new builds early, find bugs and tell us what's fun. Your feedback shapes the game.</span></div>
+      <div><span class="label">Always open</span><strong>Community</strong><span>Share builds in #showcase, talk Roblox dev in #dev-chat, and hear about launches first.</span></div>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Join and apply in #join-the-team</a>
+      <a class="text-link" href="https://www.roblox.com/communities/1043195385/Powla-Games" target="_blank" rel="noopener">Our Roblox group</a>
+    </div>
   </section>
 
   <footer>
     <img src="img/logo.webp" width="630" height="640" alt="" loading="lazy">
-    <p>Designed by Powla Games and built with AI-assisted tooling, then tested in Studio and finished by us. No exploits, cheats or anything against Roblox rules.</p>
-    <p>Discord: <a href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">discord.gg/MrdpuS4SxW</a> · © 2026 Powla Games</p>
+    <p>Powla Games™ · Roblox games and custom builds</p>
+    <p>Discord: <a href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">discord.gg/MrdpuS4SxW</a></p>
+    <div class="legal">
+      <p><strong>© 2026 Powla Games™. All rights reserved.</strong></p>
+      <p>Powla Games, the Powla Games logo, HeroValley, Pirates Cove, Powla UI Kit and all game names, characters, artwork, screenshots, code and designs on this site are trademarks or copyrighted works of Powla Games. Do not copy, re-upload or resell them without written permission.</p>
+      <p>Roblox is a trademark of Roblox Corporation. Powla Games is not affiliated with or endorsed by Roblox Corporation.</p>
+    </div>
   </footer>
-</div>
+</main>
 
+<a class="to-top" id="to-top" href="#top" aria-label="Back to top" hidden><span aria-hidden="true">↑</span></a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" integrity="sha384-P8VzCVnT9NBUkMrpcIZrJbA7EBjJvh/fJS6PmP+4nLIM284DtsImIv8D0fFjIkeh" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" integrity="sha384-B2WBjDzEjJpYvhmi2UyEn7rektqkf5suS6sNoyyrf0EBAwBHdkiXxIlU0V5Ru2ed" crossorigin="anonymous"></script>
 <script>
 /* Our games: add a new entry here for every new Powla Games title. status: "In development" | "Playtesting" | "Live". play: Roblox game link once it's public. */
 var GAMES = [
-  { name: "Mines of Morin", genre: "Realistic fantasy MMO", status: "In development", img: "img/ui-map.jpg",
+  { name: "HeroValley", genre: "Realistic fantasy MMO", status: "In development", img: "img/ui-map.jpg",
     blurb: "Pick a class, explore a hand-built world, run dungeons and fight bosses with an MMO-grade interface. Classes, quests, professions and gear.", play: "" },
   { name: "Pirates Cove", genre: "Pet and treasure simulator", status: "In development", img: "img/pc-chests2.jpg",
     blurb: "Crack open treasure chests, build a crew of pets, fuse them into stronger ones, rebirth for multipliers and sail your fleet to new islands.", play: "" }
@@ -470,7 +641,7 @@ var GAMES = [
     var img = document.createElement("img"); img.src = g.img; img.alt = g.name + " screenshot"; img.loading = "lazy";
     var body = document.createElement("div"); body.className = "body";
     var chip = document.createElement("span"); chip.className = "chip"; chip.textContent = g.status;
-    var h = document.createElement("h3"); h.textContent = g.name;
+    var h = document.createElement("h3"); h.textContent = g.name + "™";
     var genre = document.createElement("span"); genre.className = "label"; genre.textContent = g.genre;
     var p = document.createElement("p"); p.textContent = g.blurb;
     body.append(chip, h, genre, p);
@@ -533,6 +704,106 @@ var GAMES = [
       navigator.clipboard.writeText(text).then(done, fallback);
     } catch (err) { fallback(); }
   });
+})();
+
+/* ===== v3: nav, smooth slow scroll, active section, back to top, reveals ===== */
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var nav = document.getElementById("nav");
+  var links = document.getElementById("nav-links");
+  var menuBtn = document.getElementById("menu-btn");
+  var toTop = document.getElementById("to-top");
+  var lenis = null;
+
+  // Lenis gives the whole page a soft, weighty scroll (skipped under reduced motion or if the CDN is blocked)
+  if (!reduce && window.Lenis) {
+    lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+    if (window.gsap && window.ScrollTrigger) {
+      lenis.on("scroll", ScrollTrigger.update);
+      gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
+    }
+  }
+
+  function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function offsetTop(el) { return el.getBoundingClientRect().top + window.scrollY - (el.id === "top" ? 0 : nav.offsetHeight + 12); }
+
+  // slow slide to a section: about 0.9-1.2 s depending on distance, ease in and out
+  function slideTo(el) {
+    var target = Math.max(0, offsetTop(el));
+    if (reduce) { window.scrollTo(0, target); return; }
+    var dist = Math.abs(target - window.scrollY);
+    var dur = Math.min(1.2, Math.max(0.9, 0.9 + dist / 12000));
+    if (lenis) { lenis.scrollTo(target, { duration: dur, easing: easeInOutCubic }); return; }
+    var start = window.scrollY, t0 = performance.now();
+    (function step(now) {
+      var p = Math.min(1, (now - t0) / (dur * 1000));
+      window.scrollTo(0, start + (target - start) * easeInOutCubic(p));
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute("href").slice(1);
+    var el = id ? document.getElementById(id) : null;
+    if (!el) return;
+    e.preventDefault();
+    closeMenu();
+    slideTo(el);
+    history.replaceState(null, "", id === "top" ? location.pathname : "#" + id);
+  });
+
+  // phone menu
+  function closeMenu() { links.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
+  menuBtn.addEventListener("click", function () {
+    var open = !links.classList.contains("open");
+    links.classList.toggle("open", open);
+    menuBtn.setAttribute("aria-expanded", String(open));
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+  document.addEventListener("click", function (e) { if (!nav.contains(e.target)) closeMenu(); });
+
+  // highlight the section on screen
+  var navLinks = Array.prototype.slice.call(links.querySelectorAll('a[href^="#"]:not(.nav-cta)'));
+  var byId = {};
+  navLinks.forEach(function (a) { byId[a.getAttribute("href").slice(1)] = a; });
+  var visible = {};
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { visible[en.target.id] = en.isIntersecting; });
+    var current = null;
+    ["games", "products", "hire", "how", "quote", "join"].forEach(function (id) { if (visible[id] && !current) current = id; });
+    navLinks.forEach(function (a) { a.classList.toggle("active", a === byId[current]); });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  ["games", "products", "hire", "how", "quote", "join"].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+
+  // back to top shows after the hero
+  toTop.hidden = false;
+  var hero = document.getElementById("top");
+  new IntersectionObserver(function (en) { toTop.classList.toggle("show", !en[0].isIntersecting); }).observe(hero);
+
+  // scroll reveals (GSAP ScrollTrigger). Content is visible if GSAP never loads.
+  if (!reduce && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add("anim");
+    var groups = document.querySelectorAll(".head, .games > *, .product, .work > .grid > figure, h3.group, .price-item, details.more, ol.steps li, .faq details, .quote, .roles > div, main .actions, footer");
+    groups.forEach(function (el) { el.classList.add("reveal"); });
+    ScrollTrigger.batch(".reveal", {
+      start: "top 88%",
+      once: true,
+      onEnter: function (batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", stagger: 0.08, overwrite: true }); }
+    });
+    // hero entrance
+    gsap.from(".hero .logo", { scale: 0.85, rotate: -6, opacity: 0, duration: 1.1, ease: "power3.out" });
+    gsap.from(".hero-copy > *", { y: 24, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.09, delay: 0.15 });
+    // gentle parallax on the hero logo
+    gsap.to(".hero .logo", { yPercent: 18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    // details opening changes page height: keep triggers right
+    document.querySelectorAll("details").forEach(function (d) { d.addEventListener("toggle", function () { ScrollTrigger.refresh(); }); });
+  }
 })();
 </script>
 </body>
