@@ -3,9 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Powla Games: Roblox scripting, MMO-grade UI, systems and builds for hire.">
+<meta name="description" content="Powla Games: Roblox game studio. Our games, a fun growing Discord, and custom fixes, items and systems for your game.">
+<meta property="og:title" content="Powla Games">
+<meta property="og:description" content="Roblox games, custom builds and a fun, growing community.">
+<meta property="og:image" content="https://natfutsguy.github.io/powla-games/img/social-card.jpg">
+<meta property="og:url" content="https://natfutsguy.github.io/powla-games/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="img/favicon-64.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Powla Games Portfolio</title>
+<title>Powla Games Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -88,6 +96,18 @@ ol.steps li::before { content: "Step " counter(step); font-family: var(--mono); 
 ol.steps strong { font-family: var(--display); font-size: 1.05rem; }
 ol.steps span { color: var(--muted); font-size: 0.92rem; }
 
+.games { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+.game { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.game img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--line); }
+.game .body { padding: 14px 16px 16px; display: grid; gap: 8px; align-content: start; }
+.game h3 { font-size: 1.25rem; }
+.game p { color: var(--muted); font-size: 0.93rem; }
+.chip { justify-self: start; font: 500 0.72rem var(--mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: var(--gold-soft); color: var(--gold); }
+.game.next { border-style: dashed; place-content: center; text-align: center; min-height: 220px; grid-template-rows: auto; }
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+.roles div { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.roles strong { font-family: var(--display); font-size: 1.15rem; }
+.roles span:last-child { color: var(--muted); font-size: 0.92rem; }
 .quote { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 .tabs { display: flex; border-bottom: 1px solid var(--line); }
 .tabs button { flex: 1; font: 600 0.95rem var(--body); color: var(--muted); background: transparent; border: 0; border-bottom: 3px solid transparent; padding: 14px 12px; cursor: pointer; }
@@ -114,13 +134,14 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; display: grid; ga
 
 <div class="wrap">
   <header>
-    <span class="label">Roblox studio for hire</span>
+    <span class="label">Roblox game studio</span>
     <h1>Powla Games</h1>
-    <p class="lede">We build our own Roblox games: Mines of Morin, a realistic fantasy MMO, and Pirates Cove, a pet and treasure simulator. Everything below is from those two games, and we build the same things for yours.</p>
+    <p class="lede">We make our own Roblox games, we build for other developers, and we run a fun, growing community on Discord. From a quick fix to custom game items to a whole game system, we can help.</p>
     <div class="actions">
-      <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Request a quote on Discord</a>
-      <a class="btn ghost" href="#work">See the work</a>
-      <a class="btn ghost" href="#quote">Not sure? Get a quote</a>
+      <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Join our Discord</a>
+      <a class="btn ghost" href="#games">Our games</a>
+      <a class="btn ghost" href="#hire">Hire us</a>
+      <a class="btn ghost" href="#quote">Get a quote</a>
     </div>
     <div class="facts">
       <span><b>Luau</b> scripting and systems</span>
@@ -129,6 +150,40 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; display: grid; ga
       <span>Paid by <b>PayPal</b>, files after payment</span>
     </div>
   </header>
+
+  <section id="games">
+    <div class="head">
+      <span class="label">Our games</span>
+      <h2>What we're building</h2>
+      <p>Every Powla Games title lands here first. Join the Discord or our Roblox group to get into playtests before launch.</p>
+    </div>
+    <div class="games" id="game-list"></div>
+  </section>
+
+  <section id="community">
+    <div class="head">
+      <span class="label">Community</span>
+      <h2>A fun, growing Discord, and we're looking for help</h2>
+      <p>Hang out, see sneak peeks, vote on features and play our games before anyone else. We're also building the team.</p>
+    </div>
+    <div class="roles">
+      <div><span class="label">Now recruiting</span><strong>Moderators</strong><span>Keep chat friendly and safe, welcome new members and help with events. Must be 16 or older and active most days.</span></div>
+      <div><span class="label">Now recruiting</span><strong>Playtesters</strong><span>Play new builds early, find bugs and tell us what's fun and what isn't. Your feedback shapes the game.</span></div>
+      <div><span class="label">Always open</span><strong>Community</strong><span>Share builds in #showcase, talk Roblox dev in #dev-chat, and get first word on launches and events.</span></div>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Join and apply in #join-the-team</a>
+      <a class="btn ghost" href="https://www.roblox.com/communities/1043195385/Powla-Games" target="_blank" rel="noopener">Our Roblox group</a>
+    </div>
+  </section>
+
+  <section id="hire">
+    <div class="head">
+      <span class="label">Hire us</span>
+      <h2>Fixes, custom items and whole systems for your game</h2>
+      <p>Stuck on a bug? Need custom weapons, tools, pets or gear? Want a full shop, quest or combat system? We build it, test it in Studio and hand it over clean. Everything below comes from our own games.</p>
+    </div>
+  </section>
 
   <section id="work">
     <div class="head">
@@ -214,6 +269,10 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; display: grid; ga
             <td class="what">Inventory and equipment, pets with hatching and fusing, rebirths and upgrades, quests and dialogue, round-based games, combat with abilities and cooldowns, trading.</td>
             <td class="what">A clean module layout, saving and migrations built in, anti-exploit checks on the server, tuning values in one table, and milestone videos as each part lands.</td>
             <td class="price">$250</td></tr>
+          <tr><td><strong>Custom item</strong><span class="sub">Weapons, tools, pets, gear</span></td>
+            <td class="what">A sword with combos, a fishing rod, a pet that follows and levels up, a vehicle, armour sets, cosmetics: modelled, scripted and balanced for your game.</td>
+            <td class="what">The model, its scripts and effects, safe server checks, and settings you can tune without touching code.</td>
+            <td class="price">$100</td></tr>
           <tr><td><strong>Build</strong><span class="sub">Maps and 3D art</span></td>
             <td class="what">Lobbies, map areas, towns and props, low-poly to realistic, made in Blender or Studio to fit your game's art style.</td>
             <td class="what">Grounded, scaled and lit in your place, kept within a part and triangle budget so it runs well on phones.</td>
@@ -322,8 +381,36 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; display: grid; ga
 </div>
 
 <script>
+/* Our games: add a new entry here for every new Powla Games title. status: "In development" | "Playtesting" | "Live". play: Roblox game link once it's public. */
+var GAMES = [
+  { name: "Mines of Morin", genre: "Realistic fantasy MMO", status: "In development", img: "img/ui-map.jpg",
+    blurb: "Pick a class, explore a hand-built world, run dungeons and fight bosses with an MMO-grade interface. Classes, quests, professions and gear.", play: "" },
+  { name: "Pirates Cove", genre: "Pet and treasure simulator", status: "In development", img: "img/pc-chests2.jpg",
+    blurb: "Crack open treasure chests, build a crew of pets, fuse them into stronger ones, rebirth for multipliers and sail your fleet to new islands.", play: "" }
+];
 (function () {
-  var tabs = { job: document.getElementById("tab-job"), special: document.getElementById("tab-special") };
+  var list = document.getElementById("game-list");
+  GAMES.forEach(function (g) {
+    var card = document.createElement("article"); card.className = "game";
+    var img = document.createElement("img"); img.src = g.img; img.alt = g.name + " screenshot"; img.loading = "lazy";
+    var body = document.createElement("div"); body.className = "body";
+    var chip = document.createElement("span"); chip.className = "chip"; chip.textContent = g.status;
+    var h = document.createElement("h3"); h.textContent = g.name;
+    var genre = document.createElement("span"); genre.className = "label"; genre.textContent = g.genre;
+    var p = document.createElement("p"); p.textContent = g.blurb;
+    body.append(chip, h, genre, p);
+    var a = document.createElement("a"); a.className = "btn ghost"; a.target = "_blank"; a.rel = "noopener";
+    if (g.play) { a.href = g.play; a.textContent = "Play on Roblox"; }
+    else { a.href = "https://discord.gg/MrdpuS4SxW"; a.textContent = "Get playtest invites"; }
+    a.style.justifySelf = "start"; body.append(a);
+    card.append(img, body); list.append(card);
+  });
+  var next = document.createElement("article"); next.className = "game next";
+  next.innerHTML = '<div class="body"><span class="label">Coming next</span><h3>More on the way</h3><p>New games get announced in our Discord first.</p></div>';
+  list.append(next);
+})();
+(function () {
+  var tabs ={ job: document.getElementById("tab-job"), special: document.getElementById("tab-special") };
   var form = document.getElementById("form-quote");
   var $ = function (id) { return document.getElementById(id); };
   var mode = "job";
