@@ -155,24 +155,19 @@ ol.steps span { color: var(--muted); font-size: 0.92rem; }
 .game.next { border-style: dashed; place-content: center; text-align: center; min-height: 220px; grid-template-rows: auto; }
 .game.next .body { justify-items: center; }
 
-.quote { background: var(--panel); border: 2px solid var(--line); border-radius: 12px; overflow: hidden; }
-.tabs { display: flex; background: var(--ink); }
-.tabs button { flex: 1; font: 400 1.05rem var(--display); letter-spacing: .04em; color: var(--muted); background: transparent; border: 0; border-bottom: 4px solid transparent; padding: 14px 12px 10px; cursor: pointer; }
-.tabs button[aria-selected="true"] { color: var(--yellow); border-bottom-color: var(--red); }
-.tabs button:focus-visible { outline: 3px solid var(--yellow); outline-offset: -3px; }
-#form-quote { padding: 20px; display: grid; gap: 16px; }
-.row { display: grid; gap: 6px; min-width: 0; }
-.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px; }
-label { font-weight: 700; font-size: 0.92rem; }
-input, select, textarea { font: 400 0.95rem var(--body); color: var(--fg); background: var(--bg); border: 2px solid var(--line); border-radius: 8px; padding: 10px 12px; width: 100%; }
-input::placeholder, textarea::placeholder { color: #998c80; }
-textarea { resize: vertical; }
-input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--yellow); outline-offset: 1px; }
-.note { color: var(--muted); font-size: 0.9rem; }
-.note b { color: var(--yellow); }
-.error { color: #ff8a8a; font-weight: 700; font-size: 0.9rem; }
-.out { display: grid; gap: 6px; }
-.out textarea { font-family: var(--mono); font-size: 0.85rem; }
+/* Discord call to action (replaced the old quote form) */
+.discord-cta { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; align-items: center; padding: 44px 40px; border-radius: 18px; border: 3px solid var(--ink); box-shadow: 0 8px 0 var(--ink);
+  background: radial-gradient(110% 130% at 88% 25%, rgba(255,217,59,.22), transparent 55%), linear-gradient(135deg, #5865f2 0%, #4232c4 48%, #1d1638 100%); }
+.discord-cta h2 { margin: 6px 0 8px; color: #fff; }
+.discord-cta p { color: #ece9ff; }
+.dc-list { list-style: none; padding: 0; margin: 18px 0 26px; display: grid; gap: 10px; }
+.dc-list li { padding-left: 28px; position: relative; color: #f3f0ff; }
+.dc-list li b { color: var(--yellow); }
+.dc-list li::before { content: "★"; position: absolute; left: 0; top: 0; color: var(--yellow); }
+.btn.big { font-size: 1.15rem; padding: 18px 28px 16px; }
+.dc-small { margin-top: 12px; font-size: .9rem; opacity: .8; }
+.dc-logo { width: 100%; height: auto; max-width: 300px; justify-self: center; filter: drop-shadow(0 18px 30px rgba(0,0,0,.45)); transform: rotate(6deg); }
+@media (max-width: 760px) { .discord-cta { grid-template-columns: 1fr; padding: 30px 22px; } .dc-logo { max-width: 150px; order: -1; } .btn.big { width: 100%; } }
 button.btn { font: 700 1rem var(--body); cursor: pointer; }
 footer { border-top: 2px solid var(--line); padding-top: 24px; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: center; color: var(--muted); font-size: 0.9rem; }
 footer img { width: 56px; height: auto; grid-row: span 2; }
@@ -325,8 +320,9 @@ html.lenis, html.lenis body { height: auto; }
       <a href="#products">Products</a>
       <a href="#hire">Hire us</a>
       <a href="#how">How it works</a>
+      <a href="#discord">Discord</a>
       <a href="#join">Join</a>
-      <a href="#quote" class="nav-cta">Get a quote</a>
+      <a href="https://discord.gg/MrdpuS4SxW" class="nav-cta" target="_blank" rel="noopener">Join Discord</a>
     </nav>
   </div>
 </header>
@@ -401,24 +397,26 @@ html.lenis, html.lenis body { height: auto; }
     <div class="work">
       <h3 class="group">HeroValley<sup class="tm">™</sup> <span>UI and HUD</span></h3>
       <div class="grid wide">
-        <figure><img src="img/ui-map.jpg" alt="World map window open over the game, with character panels on both sides and two rows of ability buttons" loading="lazy"><figcaption><strong>World map and character panels</strong>Live zone map and character panels over a two-row action bar with cooldowns.</figcaption></figure>
-        <figure><img src="img/ui-shop.jpg" alt="In-game shop window with category list, item cards and a preview panel" loading="lazy"><figcaption><strong>In-game shop</strong>Categories, item cards, live 3D try-on and server-checked purchases.</figcaption></figure>
-        <figure><img src="img/ui-quest.jpg" alt="Quest dialogue window with objectives and rewards, plus a quest tracker on the right" loading="lazy"><figcaption><strong>Quest dialogue and tracker</strong>Objectives and rewards, plus a tracker that updates live.</figcaption></figure>
-        <figure><img src="img/ui-edit.jpg" alt="HUD edit mode showing outlined HUD blocks and a moved boss health frame" loading="lazy"><figcaption><strong>Player edit mode</strong>Drag, snap and resize every HUD block. Saved per player, never off screen.</figcaption></figure>
+        <figure><img src="img/hv-select.jpg" alt="Choose Your Hero screen: a mage on a glowing dais under a full moon, with six hero cards along the bottom" loading="lazy"><figcaption><strong>Choose your hero</strong>Six hero slots on a moonlit stone circle, each with class, level and home zone.</figcaption></figure>
+        <figure><img src="img/hv-create.jpg" alt="Create Your Hero screen with class emblems, a warrior on a dais, body sliders and skin tone swatches" loading="lazy"><figcaption><strong>Character creator</strong>Pick a class, shape the body, choose a skin tone and name your hero.</figcaption></figure>
+        <figure><img src="img/hv-talents.jpg" alt="Talents window with three themed trees: fire, frost and arcane" loading="lazy"><figcaption><strong>Talent trees</strong>Three themed trees per class, with ultimates and free resets.</figcaption></figure>
+        <figure><img src="img/hv-map.jpg" alt="World map window showing Brightmere Vale with lore panels on both sides, over a two-row action bar" loading="lazy"><figcaption><strong>World map</strong>A painted region map with lore panels, markers and fly-to.</figcaption></figure>
       </div>
       <details class="more">
         <summary>More from HeroValley, Pirates Cove and our 3D art</summary>
         <div class="more-in">
           <h3 class="group">HeroValley <span>Characters</span></h3>
           <div class="grid">
-            <figure class="tall"><img src="img/ui-create.jpg" alt="Character creator with class buttons, sliders and skin tone swatches" loading="lazy"><figcaption><strong>Character creator</strong>Classes, sliders, skin tones and outfits in one phone-sized view.</figcaption></figure>
-            <figure class="tall"><img src="img/ui-profession.jpg" alt="Character sheet with a 3D character preview and a stats list" loading="lazy"><figcaption><strong>Character sheet</strong>Live 3D preview, gear slots and a full stat breakdown.</figcaption></figure>
+            <figure class="tall"><img src="img/hv-character.jpg" alt="Character window with a 3D mage preview, gear slots on both sides and a stats list" loading="lazy"><figcaption><strong>Character sheet</strong>Live 3D preview, gear slots and a full stat breakdown.</figcaption></figure>
+            <figure class="tall"><img src="img/hv-hero-dais.jpg" alt="A warrior standing on the glowing creation dais at dusk" loading="lazy"><figcaption><strong>Hero dais</strong>Drag to turn and scroll to zoom while you build your hero.</figcaption></figure>
+            <figure><img src="img/hv-spellbook.jpg" alt="Spellbook window listing fire, frost and arcane spells with a detail panel" loading="lazy"><figcaption><strong>Spellbook</strong>Every ability with costs and cooldowns, ready to drag onto your bars.</figcaption></figure>
           </div>
           <h3 class="group">HeroValley <span>Gameplay and world</span></h3>
           <div class="grid">
-            <figure><img src="img/game-combat.jpg" alt="Player in open countryside with the action bar and minimap on screen" loading="lazy"><figcaption><strong>Open-world combat</strong>Abilities, cooldowns and a live minimap.</figcaption></figure>
-            <figure><img src="img/game-boss.jpg" alt="Village square with a quest marker above a signpost and torches lit" loading="lazy"><figcaption><strong>Quest hub</strong>Town square with quest givers and markers.</figcaption></figure>
-            <figure><img src="img/game-gear.jpg" alt="Gear preview window showing an armoured character in a town" loading="lazy"><figcaption><strong>Gear preview</strong>Try armour on before you equip it.</figcaption></figure>
+            <figure><img src="img/hv-village.jpg" alt="Timber-framed village street with market stalls, picnic tables and named townsfolk" loading="lazy"><figcaption><strong>Harrowfold village</strong>Hand-built towns full of quest givers and shops.</figcaption></figure>
+            <figure><img src="img/hv-stag.jpg" alt="A pale spotted stag with huge antlers grazing beside a dirt road, with the HUD on screen" loading="lazy"><figcaption><strong>Wildlife and combat</strong>Creatures roam the hills while your bars, frames and minimap stay on screen.</figcaption></figure>
+            <figure><img src="img/hv-mill.jpg" alt="A red-sailed windmill on a hill among dark trees" loading="lazy"><figcaption><strong>Redlamp Mill</strong>Landmarks you can see from across the farmland.</figcaption></figure>
+            <figure><img src="img/hv-waterwheel.jpg" alt="A big wooden water wheel and stone weir on a calm river" loading="lazy"><figcaption><strong>Wherrow Water</strong>River meadows, weirs and a working mill wheel.</figcaption></figure>
           </div>
           <h3 class="group">Pirates Cove<sup class="tm">™</sup> <span>Simulator systems</span></h3>
           <div class="grid">
@@ -440,7 +438,7 @@ html.lenis, html.lenis body { height: auto; }
     <div class="head sub-head">
       <span class="label">Starter prices</span>
       <h3>What it costs</h3>
-      <p>USD. Jobs start at $100, quick fixes at $30, hourly work is $35/hour prepaid in 5-hour blocks. Every quote lists exactly what's included before you pay.</p>
+      <p>USD. Jobs start at $100, quick fixes at $30, hourly work is $35/hour prepaid in 5-hour blocks. Ask in our Discord and your quote lists exactly what's included before you pay.</p>
     </div>
     <div class="price-list">
       <details class="price-item">
@@ -469,7 +467,7 @@ html.lenis, html.lenis body { height: auto; }
       </details>
       <details class="price-item">
         <summary><span class="pi-name"><strong>Special request</strong><span class="sub">Anything not listed</span></span><span class="pi-price"><small>from</small> $100</span></summary>
-        <div class="pi-body"><div><span class="label">What we build</span><p>Something unusual, a mix of the above, or a whole feature set. Use the Special request tab in the quote form.</p></div><div><span class="label">What you get</span><p>A custom quote with full scope, milestones and a ready-by date before you pay anything.</p></div></div>
+        <div class="pi-body"><div><span class="label">What we build</span><p>Something unusual, a mix of the above, or a whole feature set. Describe it in #commission-requests on our Discord.</p></div><div><span class="label">What you get</span><p>A custom quote with full scope, milestones and a ready-by date before you pay anything.</p></div></div>
       </details>
     </div>
 
@@ -487,21 +485,21 @@ html.lenis, html.lenis body { height: auto; }
     </details>
 
     <div class="actions">
-      <a class="btn primary" href="#quote">Get a quote</a>
+      <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Hire us on Discord</a>
     </div>
   </section>
 
   <section id="how">
     <div class="head">
       <span class="label">How it works</span>
-      <h2>From request to files</h2>
+      <h2>Ask, get a quote, pay, get it built</h2>
     </div>
     <ol class="steps">
-      <li><strong>Tell us</strong><span>Post what you need, your budget and deadline in #commission-requests.</span></li>
-      <li><strong>Get a quote</strong><span>What's included, the price and a ready-by date.</span></li>
+      <li><strong>Ask in Discord</strong><span>Join our Discord and post what you need, your budget and deadline in #commission-requests.</span></li>
+      <li><strong>Get a quote</strong><span>We reply with what's included, the price and a ready-by date.</span></li>
       <li><strong>Pay to start</strong><span>PayPal Goods and Services. Payment terms below.</span></li>
       <li><strong>Watch it work</strong><span>A video of it running in Studio before each remaining payment.</span></li>
-      <li><strong>Get the files</strong><span>Sent once everything is paid. Clean, commented Luau.</span></li>
+      <li><strong>We deliver</strong><span>Files are sent once everything is paid. Clean, commented Luau.</span></li>
     </ol>
     <div class="faq">
       <details>
@@ -531,72 +529,30 @@ html.lenis, html.lenis body { height: auto; }
     </div>
   </section>
 
-  <section id="quote">
-    <div class="head">
-      <span class="label">Get a quote</span>
-      <h2>Tell us what you need</h2>
-      <p>Fill this in, copy your request and post it in #commission-requests on our Discord. Anything unusual goes in the Special request tab (custom price, from $100).</p>
-    </div>
-    <div class="quote">
-      <div class="tabs" role="tablist" aria-label="Request type">
-        <button type="button" role="tab" id="tab-job" aria-selected="true" aria-controls="form-quote">Standard job</button>
-        <button type="button" role="tab" id="tab-special" aria-selected="false" aria-controls="form-quote">Special request</button>
+  <section id="discord">
+    <div class="discord-cta">
+      <div class="dc-copy">
+        <span class="label">Powla Games Discord</span>
+        <h2>Everything happens in our Discord</h2>
+        <p>Join for every update, straight from the team.</p>
+        <ul class="dc-list">
+          <li><b>Game updates</b> and sneak peeks from HeroValley™ and Pirates Cove™</li>
+          <li><b>Playtest invites</b> before anything goes public</li>
+          <li><b>Powla UI Kit™ launch news</b> and early-buyer updates</li>
+          <li><b>Hire us:</b> post your job in #commission-requests and get a quote</li>
+        </ul>
+        <a class="btn primary big" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Join the Powla Games Discord</a>
+        <p class="dc-small">Free to join · discord.gg/MrdpuS4SxW</p>
       </div>
-      <form id="form-quote" role="tabpanel" aria-labelledby="tab-job" novalidate>
-        <div class="row" id="row-type">
-          <label for="q-type">Type of job</label>
-          <select id="q-type">
-            <option>Quick fix</option>
-            <option>Feature</option>
-            <option>UI screen</option>
-            <option>Full system</option>
-            <option>Custom item</option>
-            <option>Build</option>
-            <option>Hourly block ($35/hour, 5+ hours)</option>
-            <option>Not sure yet</option>
-          </select>
-        </div>
-        <div class="row">
-          <label for="q-what" id="l-what">What do you need?</label>
-          <textarea id="q-what" rows="5" placeholder="Example: a shop window with 3 tabs and game pass buttons that works on phones"></textarea>
-        </div>
-        <div class="row" id="row-ref" hidden>
-          <label for="q-ref">Anything special we should know?</label>
-          <textarea id="q-ref" rows="3" placeholder="Reference games, screenshots you'll attach, systems it has to work with, must-haves"></textarea>
-        </div>
-        <div class="pair">
-          <div class="row">
-            <label for="q-budget">Budget (USD)</label>
-            <input id="q-budget" type="text" inputmode="decimal" placeholder="e.g. 150">
-          </div>
-          <div class="row">
-            <label for="q-date">Needed by</label>
-            <input id="q-date" type="text" placeholder="e.g. Nov 20, or no rush">
-          </div>
-        </div>
-        <div class="row">
-          <label for="q-game">Your game (link or name, optional)</label>
-          <input id="q-game" type="text" placeholder="roblox.com/games/...">
-        </div>
-        <p class="note" id="q-note">Standard jobs are quoted from the starter prices above.</p>
-        <p class="error" id="q-error" hidden>Tell us what you need first, then copy the request.</p>
-        <div class="actions">
-          <button type="submit" class="btn primary" id="q-copy">Copy my request</button>
-          <a class="text-link" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Open our Discord</a>
-        </div>
-        <div class="out" id="q-out-wrap" hidden>
-          <label for="q-out" id="q-status">Copied. Paste it in #commission-requests.</label>
-          <textarea id="q-out" rows="8" readonly></textarea>
-        </div>
-      </form>
+      <img class="dc-logo" src="img/logo.webp" width="630" height="640" alt="" loading="lazy">
     </div>
   </section>
 
   <section id="join">
     <div class="head">
       <span class="label">Community</span>
-      <h2>Join the Discord, and the team</h2>
-      <p>Hang out, see sneak peeks, vote on features and play our games before anyone else.</p>
+      <h2>Join the team</h2>
+      <p>Help us run the community, test new builds and shape what we make next.</p>
     </div>
     <div class="roles">
       <div><span class="label">Now recruiting</span><strong>Moderators</strong><span>Keep chat friendly and safe, welcome new members and help with events. 16 or older and active most days.</span></div>
@@ -629,7 +585,7 @@ html.lenis, html.lenis body { height: auto; }
 <script>
 /* Our games: add a new entry here for every new Powla Games title. status: "In development" | "Playtesting" | "Live". play: Roblox game link once it's public. */
 var GAMES = [
-  { name: "HeroValley", genre: "Realistic fantasy MMO", status: "In development", img: "img/ui-map.jpg",
+  { name: "HeroValley", genre: "Realistic fantasy MMO", status: "In development", img: "img/hv-key-art.jpg",
     blurb: "Pick a class, explore a hand-built world, run dungeons and fight bosses with an MMO-grade interface. Classes, quests, professions and gear.", play: "" },
   { name: "Pirates Cove", genre: "Pet and treasure simulator", status: "In development", img: "img/pc-chests2.jpg",
     blurb: "Crack open treasure chests, build a crew of pets, fuse them into stronger ones, rebirth for multipliers and sail your fleet to new islands.", play: "" }
@@ -654,56 +610,6 @@ var GAMES = [
   var next = document.createElement("article"); next.className = "game next";
   next.innerHTML = '<div class="body"><span class="label">Coming next</span><h3>More on the way</h3><p>New games get announced in our Discord first.</p></div>';
   list.append(next);
-})();
-(function () {
-  var tabs ={ job: document.getElementById("tab-job"), special: document.getElementById("tab-special") };
-  var form = document.getElementById("form-quote");
-  var $ = function (id) { return document.getElementById(id); };
-  var mode = "job";
-
-  function setMode(next) {
-    mode = next;
-    tabs.job.setAttribute("aria-selected", String(next === "job"));
-    tabs.special.setAttribute("aria-selected", String(next === "special"));
-    form.setAttribute("aria-labelledby", next === "job" ? "tab-job" : "tab-special");
-    $("row-type").hidden = next === "special";
-    $("row-ref").hidden = next !== "special";
-    $("l-what").textContent = next === "special" ? "Describe your special request" : "What do you need?";
-    $("q-note").innerHTML = next === "special"
-      ? "Special requests get a <b>custom price, starting at $100</b>. You'll see the full scope and milestones before paying anything."
-      : "Standard jobs are quoted from the starter prices above.";
-  }
-  tabs.job.addEventListener("click", function () { setMode("job"); });
-  tabs.special.addEventListener("click", function () { setMode("special"); });
-  document.querySelector(".tabs").addEventListener("keydown", function (e) {
-    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-      var next = mode === "job" ? "special" : "job";
-      setMode(next); tabs[next].focus();
-    }
-  });
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var what = $("q-what").value.trim();
-    $("q-error").hidden = !!what;
-    if (!what) { $("q-what").focus(); return; }
-    var lines = [mode === "special" ? "**SPECIAL REQUEST** (custom price, from $100)" : "**QUOTE REQUEST: " + $("q-type").value + "**",
-      "What: " + what];
-    var ref = $("q-ref").value.trim();
-    if (mode === "special" && ref) lines.push("Special notes: " + ref);
-    lines.push("Budget: " + ($("q-budget").value.trim() ? "$" + $("q-budget").value.trim().replace(/^\$/, "") : "not sure"));
-    lines.push("Needed by: " + ($("q-date").value.trim() || "no date given"));
-    if ($("q-game").value.trim()) lines.push("Game: " + $("q-game").value.trim());
-    var text = lines.join("\n");
-    var out = $("q-out");
-    out.value = text;
-    $("q-out-wrap").hidden = false;
-    var done = function () { $("q-status").textContent = "Copied. Paste it in #commission-requests on our Discord."; };
-    var fallback = function () { out.focus(); out.select(); $("q-status").textContent = "Select this text and copy it, then paste it in #commission-requests."; };
-    try {
-      navigator.clipboard.writeText(text).then(done, fallback);
-    } catch (err) { fallback(); }
-  });
 })();
 
 /* ===== v3: nav, smooth slow scroll, active section, back to top, reveals ===== */
@@ -775,10 +681,10 @@ var GAMES = [
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) { visible[en.target.id] = en.isIntersecting; });
     var current = null;
-    ["games", "products", "hire", "how", "quote", "join"].forEach(function (id) { if (visible[id] && !current) current = id; });
+    ["games", "products", "hire", "how", "discord", "join"].forEach(function (id) { if (visible[id] && !current) current = id; });
     navLinks.forEach(function (a) { a.classList.toggle("active", a === byId[current]); });
   }, { rootMargin: "-40% 0px -55% 0px" });
-  ["games", "products", "hire", "how", "quote", "join"].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  ["games", "products", "hire", "how", "discord", "join"].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
 
   // back to top shows after the hero
   toTop.hidden = false;
@@ -789,7 +695,7 @@ var GAMES = [
   if (!reduce && window.gsap && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
     document.documentElement.classList.add("anim");
-    var groups = document.querySelectorAll(".head, .games > *, .product, .work > .grid > figure, h3.group, .price-item, details.more, ol.steps li, .faq details, .quote, .roles > div, main .actions, footer");
+    var groups = document.querySelectorAll(".head, .games > *, .product, .work > .grid > figure, h3.group, .price-item, details.more, ol.steps li, .faq details, .discord-cta, .roles > div, main .actions, footer");
     groups.forEach(function (el) { el.classList.add("reveal"); });
     ScrollTrigger.batch(".reveal", {
       start: "top 88%",
