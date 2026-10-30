@@ -12,144 +12,191 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="img/favicon-64.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>html{color-scheme:dark}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Powla Games Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* Layout: one column of work sections, each a captioned screenshot grid; a slim price table and a real five-step process at the end. */
+/* Brand v2 (Sam's starburst logo): red POWLA, yellow burst, ink outlines, cream ribbon text. Comic punch in the hero, calm dark panels below. */
 :root {
-  --bg: #eceef3;
-  --panel: #ffffff;
-  --line: #d5d8e1;
-  --fg: #1b1822;
-  --muted: #5b5666;
-  --gold: #94600f;
-  --gold-soft: #f3e3c4;
-  --display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --red: #ff3b3b; --red-deep: #c71f2b; --yellow: #ffd93b; --cream: #fff4b8; --ink: #121212;
+  --bg: #15110f; --panel: #211a17; --line: #3d302a;
+  --fg: #fbf5ea; --muted: #c4b8aa;
+  --display: "Luckiest Guy", "Arial Black", Impact, system-ui, sans-serif;
   --body: "Figtree", "Segoe UI", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #15121a; --panel: #201b26; --line: #342d3c; --fg: #f1ece4; --muted: #aaa2b3;
-    --gold: #e5ad52; --gold-soft: #3a2c19; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #15121a; --panel: #201b26; --line: #342d3c; --fg: #f1ece4; --muted: #aaa2b3;
-  --gold: #e5ad52; --gold-soft: #3a2c19; color-scheme: dark;
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
+html { overflow-x: hidden; }
 body {
-  background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.6;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  overflow-x: hidden;
 }
-.wrap { max-width: 1120px; margin: 0 auto; padding-block: 40px 56px; display: grid; gap: 56px; }
-h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.15; }
-h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); letter-spacing: -0.01em; }
-h2 { font-size: clamp(1.4rem, 3.2vw, 1.9rem); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-block: 0 56px; display: grid; gap: 72px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; line-height: 1.08; letter-spacing: 0.02em; }
+h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); color: var(--fg); }
+h2::after { content: ""; display: block; width: 64px; height: 6px; margin-top: 12px; background: var(--red); border-radius: 3px; box-shadow: 72px 0 0 -1px var(--yellow); }
 p { margin: 0; max-width: 65ch; }
-a { color: var(--gold); }
-a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
-.label { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+a { color: var(--yellow); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; border-radius: 6px; }
+.label { font-family: var(--mono); font-weight: 700; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); }
 
-header { display: grid; gap: 18px; }
-header .lede { font-size: 1.15rem; color: var(--muted); }
+/* Hero: full-bleed red sunburst with halftone dots, like the logo art */
+.hero {
+  --cx: 24%; --cy: 50%;
+  position: relative; margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))) 72px; padding: 40px max(16px, env(safe-area-inset-left, 0px)) 52px;
+  background:
+    radial-gradient(circle at var(--cx) var(--cy), rgba(255, 210, 120, .35), transparent 42%),
+    radial-gradient(rgba(0,0,0,.16) 1.6px, transparent 1.8px) 0 0 / 12px 12px,
+    repeating-conic-gradient(from 0deg at var(--cx) var(--cy), #e62d35 0deg 9deg, #c71f2b 9deg 18deg);
+  border-bottom: 6px solid var(--ink); box-shadow: 0 6px 0 var(--yellow);
+}
+.hero-in { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 36px; align-items: center; }
+.hero .logo { width: 100%; height: auto; max-width: 430px; justify-self: center; filter: drop-shadow(0 10px 18px rgba(0,0,0,.45)); }
+.hero-copy { display: grid; gap: 16px; justify-items: start; min-width: 0; }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 4.6rem); color: var(--yellow); -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; text-shadow: 0 5px 0 var(--ink); }
+.ribbon { display: inline-block; background: var(--ink); color: var(--yellow); font-family: var(--display); font-size: clamp(0.95rem, 2.4vw, 1.25rem); letter-spacing: 0.04em; padding: 8px 18px 5px; border-radius: 10px; border: 2px solid var(--red-deep); }
+.hero .lede { font-size: 1.1rem; color: #fff; font-weight: 500; background: rgba(18,18,18,.62); padding: 14px 16px; border-radius: 10px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; }
+.facts span { background: var(--ink); color: var(--cream); font-size: 0.86rem; padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(255, 217, 59, .35); }
+.facts b { color: var(--yellow); font-weight: 700; }
+@media (max-width: 760px) {
+  .hero { --cx: 50%; --cy: 22%; padding-top: 28px; }
+  .hero-in { grid-template-columns: 1fr; gap: 18px; text-align: center; justify-items: center; }
+  .hero .logo { max-width: 250px; }
+  .hero-copy, .hero .lede { justify-items: center; }
+  .hero .actions, .facts { justify-content: center; }
+}
+
 .actions { display: flex; flex-wrap: wrap; gap: 12px; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 6px; font-weight: 600; text-decoration: none; border: 1px solid var(--gold); }
-.btn.primary { background: var(--gold); color: var(--bg); }
-.btn.ghost { color: var(--gold); }
-.facts { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--muted); font-size: 0.92rem; }
-.facts b { color: var(--fg); font-weight: 600; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 20px 10px; border-radius: 10px; font-weight: 700; text-decoration: none; border: 2px solid var(--ink); }
+.btn.primary { background: var(--yellow); color: var(--ink); box-shadow: 0 4px 0 var(--ink); }
+.btn.ghost { color: var(--yellow); border-color: var(--yellow); background: transparent; }
+.hero .btn.ghost { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+@media (prefers-reduced-motion: no-preference) {
+  .btn { transition: transform .12s, box-shadow .12s, filter .15s; }
+  .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--ink); }
+  .btn.primary:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--ink); }
+  .btn.ghost:hover { filter: brightness(1.15); }
+}
 
-section { display: grid; gap: 20px; }
-.head { display: grid; gap: 6px; }
+section { display: grid; gap: 22px; scroll-margin-top: 16px; }
+.head { display: grid; gap: 8px; }
 .head p { color: var(--muted); }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 18px; }
 .grid.wide { grid-template-columns: repeat(auto-fill, minmax(min(100%, 480px), 1fr)); }
-figure { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; }
-figure img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--line); }
+figure { margin: 0; background: var(--panel); border: 2px solid var(--line); border-radius: 12px; overflow: hidden; display: grid; }
+figure img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--line); border-bottom: 2px solid var(--line); }
 figure.tall img { aspect-ratio: 4 / 5; object-fit: cover; object-position: top; }
 figcaption { padding: 12px 14px 14px; display: grid; gap: 2px; font-size: 0.92rem; color: var(--muted); }
-figcaption strong { color: var(--fg); font-weight: 600; }
+figcaption strong { color: var(--fg); font-weight: 700; }
 
-.prices { border: 1px solid var(--line); border-radius: 8px; overflow-x: auto; background: var(--panel); }
-table { border-collapse: collapse; width: 100%; min-width: 520px; }
-th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+/* Products */
+.product { background: var(--panel); border: 2px solid var(--line); border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
+.product .side { background:
+    radial-gradient(rgba(0,0,0,.18) 1.6px, transparent 1.8px) 0 0 / 12px 12px,
+    linear-gradient(135deg, #e62d35, #9e1622);
+  padding: 28px 24px; display: grid; gap: 12px; align-content: center; border-right: 4px solid var(--ink); }
+.product .side h3 { font-size: clamp(2rem, 5vw, 2.7rem); color: var(--yellow); -webkit-text-stroke: 1.5px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink); }
+.product .side p { color: #fff; font-weight: 600; font-size: 1.05rem; }
+.badge { justify-self: start; background: var(--ink); color: var(--yellow); font: 700 0.78rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 10px; border-radius: 8px; }
+.product .side .price { font-family: var(--display); font-weight: 400; font-size: 1.5rem; letter-spacing: .03em; }
+.product .price span { color: var(--cream); font-size: 1rem; }
+.product .main { padding: 24px; display: grid; gap: 18px; align-content: start; }
+.product ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.product li { display: grid; grid-template-columns: 16px 1fr; gap: 12px; color: var(--muted); }
+.product li::before { content: ""; width: 16px; height: 16px; margin-top: 4px; background: var(--yellow); clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+.product li b { color: var(--fg); }
+@media (max-width: 760px) {
+  .product { grid-template-columns: 1fr; }
+  .product .side { border-right: 0; border-bottom: 4px solid var(--ink); }
+}
+
+.prices { border: 2px solid var(--line); border-radius: 12px; overflow-x: auto; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; min-width: 760px; }
+th, td { text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
 tr:last-child td { border-bottom: 0; }
-th { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
-td.price { font-family: var(--mono); color: var(--gold); white-space: nowrap; font-variant-numeric: tabular-nums; }
+thead th { background: var(--ink); }
+th { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--yellow); font-weight: 700; }
+th:nth-child(2), th:nth-child(3) { width: 38%; }
+td strong { font-family: var(--display); font-weight: 400; font-size: 1.1rem; letter-spacing: .03em; }
+td.price { font-family: var(--display); font-size: 1.4rem; color: var(--yellow); white-space: nowrap; letter-spacing: .03em; }
 td.what { color: var(--muted); font-size: 0.92rem; }
 td .sub { display: block; color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
-table { min-width: 760px; }
-th:nth-child(2), th:nth-child(3) { width: 38%; }
-.styles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
-.styles div { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
-.styles strong { font-family: var(--display); font-size: 1.05rem; }
-.styles span { color: var(--muted); font-size: 0.92rem; }
+.styles, .roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 14px; }
+.styles div, .roles div { background: var(--panel); border: 2px solid var(--line); border-top: 5px solid var(--red); border-radius: 12px; padding: 18px; display: grid; gap: 6px; align-content: start; }
+.styles strong, .roles strong { font-family: var(--display); font-weight: 400; font-size: 1.25rem; letter-spacing: .03em; }
+.styles span, .roles span:last-child { color: var(--muted); font-size: 0.92rem; }
 
-ol.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 12px; counter-reset: step; }
-ol.steps li { counter-increment: step; background: var(--gold-soft); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
-ol.steps li::before { content: "Step " counter(step); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
-ol.steps strong { font-family: var(--display); font-size: 1.05rem; }
+ol.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 14px; counter-reset: step; }
+ol.steps li { counter-increment: step; background: var(--panel); border: 2px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 6px; align-content: start; }
+ol.steps li::before { content: counter(step); font-family: var(--display); font-size: 1.4rem; line-height: 1; width: 40px; height: 40px; display: grid; place-items: center; padding-top: 4px; background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); border-radius: 50%; box-shadow: 0 3px 0 var(--ink); margin-bottom: 4px; }
+ol.steps strong { font-family: var(--display); font-weight: 400; font-size: 1.2rem; letter-spacing: .03em; }
 ol.steps span { color: var(--muted); font-size: 0.92rem; }
 
-.games { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; }
-.game { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
-.game img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--line); }
-.game .body { padding: 14px 16px 16px; display: grid; gap: 8px; align-content: start; }
-.game h3 { font-size: 1.25rem; }
+.games { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 18px; }
+.game { background: var(--panel); border: 2px solid var(--line); border-radius: 12px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.game img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--line); border-bottom: 4px solid var(--red); }
+.game .body { padding: 16px; display: grid; gap: 8px; align-content: start; }
+.game h3 { font-size: 1.6rem; color: var(--fg); }
 .game p { color: var(--muted); font-size: 0.93rem; }
-.chip { justify-self: start; font: 500 0.72rem var(--mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: var(--gold-soft); color: var(--gold); }
+.chip { justify-self: start; font: 700 0.72rem var(--mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 9px; border-radius: 999px; background: var(--yellow); color: var(--ink); }
 .game.next { border-style: dashed; place-content: center; text-align: center; min-height: 220px; grid-template-rows: auto; }
-.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
-.roles div { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
-.roles strong { font-family: var(--display); font-size: 1.15rem; }
-.roles span:last-child { color: var(--muted); font-size: 0.92rem; }
-.quote { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-.tabs { display: flex; border-bottom: 1px solid var(--line); }
-.tabs button { flex: 1; font: 600 0.95rem var(--body); color: var(--muted); background: transparent; border: 0; border-bottom: 3px solid transparent; padding: 14px 12px; cursor: pointer; }
-.tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--gold); }
-.tabs button:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+.game.next .body { justify-items: center; }
+
+.quote { background: var(--panel); border: 2px solid var(--line); border-radius: 12px; overflow: hidden; }
+.tabs { display: flex; background: var(--ink); }
+.tabs button { flex: 1; font: 400 1.05rem var(--display); letter-spacing: .04em; color: var(--muted); background: transparent; border: 0; border-bottom: 4px solid transparent; padding: 14px 12px 10px; cursor: pointer; }
+.tabs button[aria-selected="true"] { color: var(--yellow); border-bottom-color: var(--red); }
+.tabs button:focus-visible { outline: 3px solid var(--yellow); outline-offset: -3px; }
 #form-quote { padding: 20px; display: grid; gap: 16px; }
 .row { display: grid; gap: 6px; min-width: 0; }
 .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px; }
-label { font-weight: 600; font-size: 0.92rem; }
-input, select, textarea { font: 400 0.95rem var(--body); color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; width: 100%; }
+label { font-weight: 700; font-size: 0.92rem; }
+input, select, textarea { font: 400 0.95rem var(--body); color: var(--fg); background: var(--bg); border: 2px solid var(--line); border-radius: 8px; padding: 10px 12px; width: 100%; }
+input::placeholder, textarea::placeholder { color: #998c80; }
 textarea { resize: vertical; }
-input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--yellow); outline-offset: 1px; }
 .note { color: var(--muted); font-size: 0.9rem; }
-.note b { color: var(--gold); }
-.error { color: var(--gold); font-weight: 600; font-size: 0.9rem; }
+.note b { color: var(--yellow); }
+.error { color: #ff8a8a; font-weight: 700; font-size: 0.9rem; }
 .out { display: grid; gap: 6px; }
 .out textarea { font-family: var(--mono); font-size: 0.85rem; }
-button.btn { font: 600 1rem var(--body); cursor: pointer; }
-footer { border-top: 1px solid var(--line); padding-top: 20px; display: grid; gap: 8px; color: var(--muted); font-size: 0.9rem; }
-@media (prefers-reduced-motion: no-preference) { .btn { transition: filter .15s; } .btn:hover { filter: brightness(1.08); } }
+button.btn { font: 700 1rem var(--body); cursor: pointer; }
+footer { border-top: 2px solid var(--line); padding-top: 24px; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: center; color: var(--muted); font-size: 0.9rem; }
+footer img { width: 56px; height: auto; grid-row: span 2; }
 </style>
 </head>
 <body>
 
+<header class="hero">
+  <div class="hero-in">
+    <img class="logo" src="img/logo.webp" width="630" height="640" alt="Powla Games logo: red POWLA lettering on a yellow comic starburst with a GAMES ribbon">
+    <div class="hero-copy">
+      <h1>Powla Games</h1>
+      <span class="ribbon">Roblox games · custom builds</span>
+      <p class="lede">We make our own Roblox games, we build for other developers, and we run a fun, growing community on Discord. From a quick fix to custom game items to a whole game system, we can help.</p>
+      <div class="actions">
+        <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Join our Discord</a>
+        <a class="btn ghost" href="#games">Our games</a>
+        <a class="btn ghost" href="#products">Products</a>
+        <a class="btn ghost" href="#hire">Hire us</a>
+        <a class="btn ghost" href="#quote">Get a quote</a>
+      </div>
+      <div class="facts">
+        <span><b>Luau</b> scripting and systems</span>
+        <span><b>MMO-grade</b> UI and HUD</span>
+        <span>Phone, tablet, PC and controller</span>
+        <span>Paid by <b>PayPal</b>, files after payment</span>
+      </div>
+    </div>
+  </div>
+</header>
+
 <div class="wrap">
-  <header>
-    <span class="label">Roblox game studio</span>
-    <h1>Powla Games</h1>
-    <p class="lede">We make our own Roblox games, we build for other developers, and we run a fun, growing community on Discord. From a quick fix to custom game items to a whole game system, we can help.</p>
-    <div class="actions">
-      <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Join our Discord</a>
-      <a class="btn ghost" href="#games">Our games</a>
-      <a class="btn ghost" href="#hire">Hire us</a>
-      <a class="btn ghost" href="#quote">Get a quote</a>
-    </div>
-    <div class="facts">
-      <span><b>Luau</b> scripting and systems</span>
-      <span><b>MMO-grade</b> UI and HUD</span>
-      <span>Phone, tablet, PC and controller</span>
-      <span>Paid by <b>PayPal</b>, files after payment</span>
-    </div>
-  </header>
 
   <section id="games">
     <div class="head">
@@ -175,6 +222,33 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; display: grid; ga
       <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Join and apply in #join-the-team</a>
       <a class="btn ghost" href="https://www.roblox.com/communities/1043195385/Powla-Games" target="_blank" rel="noopener">Our Roblox group</a>
     </div>
+  </section>
+
+  <section id="products">
+    <div class="head">
+      <span class="label">Products</span>
+      <h2>Tools for Roblox developers</h2>
+      <p>Ready-made kits from the same systems we use in our own games.</p>
+    </div>
+    <article class="product">
+      <div class="side">
+        <span class="badge">Coming Nov 10, 2026</span>
+        <h3>Powla UI Kit</h3>
+        <p>MMO-grade UI for Roblox.</p>
+        <p class="price">$9.99 <span>at launch</span></p>
+      </div>
+      <div class="main">
+        <ul>
+          <li><span><b>Themes from one table.</b> Colours, fonts and frames switch with one line, with windows, tabs, buttons, tooltips and toasts ready to use.</span></li>
+          <li><span><b>Action bars that feel right.</b> Cooldown sweeps, glowing proc highlights, charge counts and up to four bar pages.</span></li>
+          <li><span><b>Edit mode and keybinding.</b> Players drag, snap and resize their HUD and rebind every action, saved per player.</span></li>
+          <li><span><b>Every screen.</b> Layout presets for phone, tablet, PC and console that keep everything on screen and inside the safe area.</span></li>
+        </ul>
+        <div class="actions">
+          <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Get notified in our Discord</a>
+        </div>
+      </div>
+    </article>
   </section>
 
   <section id="hire">
@@ -375,6 +449,7 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; display: grid; ga
   </section>
 
   <footer>
+    <img src="img/logo.webp" width="630" height="640" alt="" loading="lazy">
     <p>Designed by Powla Games and built with AI-assisted tooling, then tested in Studio and finished by us. No exploits, cheats or anything against Roblox rules.</p>
     <p>Discord: <a href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">discord.gg/MrdpuS4SxW</a> · © 2026 Powla Games</p>
   </footer>
