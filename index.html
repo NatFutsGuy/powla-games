@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Powla Games: Roblox scripting, MMO-grade UI, systems and builds for hire.">
+<style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Powla Games Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one column of work sections, each a captioned screenshot grid; a slim price table and a real five-step process at the end. */
+:root {
+  --bg: #eceef3;
+  --panel: #ffffff;
+  --line: #d5d8e1;
+  --fg: #1b1822;
+  --muted: #5b5666;
+  --gold: #94600f;
+  --gold-soft: #f3e3c4;
+  --display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15121a; --panel: #201b26; --line: #342d3c; --fg: #f1ece4; --muted: #aaa2b3;
+    --gold: #e5ad52; --gold-soft: #3a2c19; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15121a; --panel: #201b26; --line: #342d3c; --fg: #f1ece4; --muted: #aaa2b3;
+  --gold: #e5ad52; --gold-soft: #3a2c19; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding-block: 40px 56px; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.4rem, 3.2vw, 1.9rem); }
+p { margin: 0; max-width: 65ch; }
+a { color: var(--gold); }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+.label { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+
+header { display: grid; gap: 18px; }
+header .lede { font-size: 1.15rem; color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 6px; font-weight: 600; text-decoration: none; border: 1px solid var(--gold); }
+.btn.primary { background: var(--gold); color: var(--bg); }
+.btn.ghost { color: var(--gold); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--muted); font-size: 0.92rem; }
+.facts b { color: var(--fg); font-weight: 600; }
+
+section { display: grid; gap: 20px; }
+.head { display: grid; gap: 6px; }
+.head p { color: var(--muted); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+.grid.wide { grid-template-columns: repeat(auto-fill, minmax(min(100%, 480px), 1fr)); }
+figure { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; }
+figure img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--line); }
+figure.tall img { aspect-ratio: 4 / 5; object-fit: cover; object-position: top; }
+figcaption { padding: 12px 14px 14px; display: grid; gap: 2px; font-size: 0.92rem; color: var(--muted); }
+figcaption strong { color: var(--fg); font-weight: 600; }
+
+.prices { border: 1px solid var(--line); border-radius: 8px; overflow-x: auto; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; min-width: 520px; }
+th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td.price { font-family: var(--mono); color: var(--gold); white-space: nowrap; font-variant-numeric: tabular-nums; }
+td.what { color: var(--muted); font-size: 0.92rem; }
+td .sub { display: block; color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+table { min-width: 760px; }
+th:nth-child(2), th:nth-child(3) { width: 38%; }
+.styles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+.styles div { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.styles strong { font-family: var(--display); font-size: 1.05rem; }
+.styles span { color: var(--muted); font-size: 0.92rem; }
+
+ol.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 12px; counter-reset: step; }
+ol.steps li { counter-increment: step; background: var(--gold-soft); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+ol.steps li::before { content: "Step " counter(step); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+ol.steps strong { font-family: var(--display); font-size: 1.05rem; }
+ol.steps span { color: var(--muted); font-size: 0.92rem; }
+
+.quote { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.tabs { display: flex; border-bottom: 1px solid var(--line); }
+.tabs button { flex: 1; font: 600 0.95rem var(--body); color: var(--muted); background: transparent; border: 0; border-bottom: 3px solid transparent; padding: 14px 12px; cursor: pointer; }
+.tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--gold); }
+.tabs button:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+#form-quote { padding: 20px; display: grid; gap: 16px; }
+.row { display: grid; gap: 6px; min-width: 0; }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px; }
+label { font-weight: 600; font-size: 0.92rem; }
+input, select, textarea { font: 400 0.95rem var(--body); color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; width: 100%; }
+textarea { resize: vertical; }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.note { color: var(--muted); font-size: 0.9rem; }
+.note b { color: var(--gold); }
+.error { color: var(--gold); font-weight: 600; font-size: 0.9rem; }
+.out { display: grid; gap: 6px; }
+.out textarea { font-family: var(--mono); font-size: 0.85rem; }
+button.btn { font: 600 1rem var(--body); cursor: pointer; }
+footer { border-top: 1px solid var(--line); padding-top: 20px; display: grid; gap: 8px; color: var(--muted); font-size: 0.9rem; }
+@media (prefers-reduced-motion: no-preference) { .btn { transition: filter .15s; } .btn:hover { filter: brightness(1.08); } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="label">Roblox studio for hire</span>
+    <h1>Powla Games</h1>
+    <p class="lede">We build our own Roblox games: Mines of Morin, a realistic fantasy MMO, and Pirates Cove, a pet and treasure simulator. Everything below is from those two games, and we build the same things for yours.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Request a quote on Discord</a>
+      <a class="btn ghost" href="#work">See the work</a>
+      <a class="btn ghost" href="#quote">Not sure? Get a quote</a>
+    </div>
+    <div class="facts">
+      <span><b>Luau</b> scripting and systems</span>
+      <span><b>MMO-grade</b> UI and HUD</span>
+      <span>Phone, tablet, PC and controller</span>
+      <span>Paid by <b>PayPal</b>, files after payment</span>
+    </div>
+  </header>
+
+  <section id="work">
+    <div class="head">
+      <span class="label">Mines of Morin</span>
+      <h2>UI and HUD</h2>
+      <p>Full MMO interface: action bars, windows, shops, quests and a player edit mode. Every screen scales from phone to ultrawide.</p>
+    </div>
+    <div class="grid wide">
+      <figure><img src="img/ui-map.jpg" alt="World map window open over the game, with character panels on both sides and two rows of ability buttons" loading="lazy"><figcaption><strong>World map and character panels</strong>Zone map with live markers, flanked by character panels, over a two-row action bar with cooldowns. Built from code, so it stays sharp at any resolution.</figcaption></figure>
+      <figure><img src="img/ui-shop.jpg" alt="In-game shop window with category list, item cards and a preview panel" loading="lazy"><figcaption><strong>In-game shop</strong>Category list, item cards, a live 3D try-on preview and a buy panel wired to server-checked purchases.</figcaption></figure>
+      <figure><img src="img/ui-quest.jpg" alt="Quest dialogue window with objectives and rewards, plus a quest tracker on the right" loading="lazy"><figcaption><strong>Quest dialogue and tracker</strong>NPC dialogue with objectives, XP and item rewards, plus a side tracker that updates live as you kill, collect and travel.</figcaption></figure>
+      <figure><img src="img/ui-edit.jpg" alt="HUD edit mode showing outlined HUD blocks and a moved boss health frame" loading="lazy"><figcaption><strong>Player edit mode</strong>Players drag, snap and resize every HUD block. Layouts save per player, re-fit when the screen changes, and can never end up off screen.</figcaption></figure>
+    </div>
+    <div class="grid">
+      <figure class="tall"><img src="img/ui-create.jpg" alt="Character creator with class buttons, sliders and skin tone swatches" loading="lazy"><figcaption><strong>Character creator</strong>Class picker, body and face sliders, skin tones and outfits, laid out to fit a phone screen in one view.</figcaption></figure>
+      <figure class="tall"><img src="img/ui-profession.jpg" alt="Character sheet with a 3D character preview and a stats list" loading="lazy"><figcaption><strong>Character sheet</strong>Live 3D preview of your character, gear slots and a full stat breakdown that updates as you equip items.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="label">Mines of Morin</span>
+      <h2>Gameplay and world</h2>
+      <p>Combat, quests, gear and a hand-built open world, all running on our own server-checked systems.</p>
+    </div>
+    <div class="grid">
+      <figure><img src="img/game-combat.jpg" alt="Player in open countryside with the action bar and minimap on screen" loading="lazy"><figcaption><strong>Open-world combat</strong>Abilities, cooldowns and a live minimap.</figcaption></figure>
+      <figure><img src="img/game-boss.jpg" alt="Village square with a quest marker above a signpost and torches lit" loading="lazy"><figcaption><strong>Quest hub</strong>Town square with quest givers and markers.</figcaption></figure>
+      <figure><img src="img/game-gear.jpg" alt="Gear preview window showing an armoured character in a town" loading="lazy"><figcaption><strong>Gear preview</strong>Try armour on before you equip it.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="label">Pirates Cove</span>
+      <h2>Simulator systems</h2>
+      <p>Pets, chests, rebirths and a crew you sail with. Saving, shop and economy all built by us.</p>
+    </div>
+    <div class="grid">
+      <figure><img src="img/pc-economy.jpg" alt="Crew window with a grid of pets and a combine pets portal behind it" loading="lazy"><figcaption><strong>Pet crew and combining</strong>Equip, sort and fuse pets into stronger ones.</figcaption></figure>
+      <figure><img src="img/pc-rebirth.jpg" alt="Rebirth window showing multipliers and bulk rebirth buttons" loading="lazy"><figcaption><strong>Rebirths</strong>Multipliers, bulk and auto rebirth.</figcaption></figure>
+      <figure><img src="img/pc-chests2.jpg" alt="Two treasure chests on an island with an odds board above them" loading="lazy"><figcaption><strong>Chest hatching</strong>Odds board, reveal scene and auto-delete.</figcaption></figure>
+      <figure><img src="img/pc-fleet.jpg" alt="Pirate ship with crew pets on deck sailing on blue water" loading="lazy"><figcaption><strong>Fleet</strong>Your crew rides with you on your ship.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="label">3D art</span>
+      <h2>Models and buildings</h2>
+      <p>Realistic props and buildings made in Blender with our own generators, then placed in game.</p>
+    </div>
+    <div class="grid">
+      <figure><img src="img/art-stilthouse.jpg" alt="Wooden stilt house with a staircase, rendered in soft daylight" loading="lazy"><figcaption><strong>Stilt house</strong>Multi-storey building kit piece.</figcaption></figure>
+      <figure><img src="img/art-rock.jpg" alt="Two large ore rocks next to a player-sized grey figure for scale" loading="lazy"><figcaption><strong>Ore rocks</strong>Mining nodes, shown next to a player for scale.</figcaption></figure>
+      <figure><img src="img/art-lamp.jpg" alt="Wooden dock with lamp posts rendered in daylight" loading="lazy"><figcaption><strong>Dock with lamps</strong>Props that light up at night.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="label">Starter prices</span>
+      <h2>What it costs</h2>
+      <p>Prices in USD. Jobs start at $100; quick fixes start at $30. Every quote lists exactly what's included before you pay anything. Hourly work is $35 an hour, prepaid in blocks of 5 hours or more.</p>
+    </div>
+    <div class="prices">
+      <table>
+        <thead><tr><th>Job</th><th>What we build</th><th>What you get</th><th>From</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Quick fix</strong><span class="sub">Bugs and tune-ups</span></td>
+            <td class="what">Broken scripts, errors in the output window, saving that loses data, remotes that lag or can be abused, UI that breaks on phones, small balance tweaks.</td>
+            <td class="what">The cause found and fixed, a short note on what was wrong, and a check that nothing else broke.</td>
+            <td class="price">$30</td></tr>
+          <tr><td><strong>Feature</strong><span class="sub">One system, done properly</span></td>
+            <td class="what">Shops with game passes and developer products, global leaderboards, DataStore saving with session locks, daily rewards and streaks, codes, badges, settings menus.</td>
+            <td class="what">Server-checked Luau that exploiters can't spoof, purchase receipts handled safely, and a video of it working in Studio.</td>
+            <td class="price">$100</td></tr>
+          <tr><td><strong>UI screen</strong><span class="sub">Menus, HUDs and windows</span></td>
+            <td class="what">Shops, inventories, quest logs, maps, character screens, action bars and HUDs, styled to match your game's current theme or a brand-new look.</td>
+            <td class="what">Scale-based layouts tested on phone, tablet, PC and controller, smooth open and close motion, and colours and fonts set in one place so you can restyle it later.</td>
+            <td class="price">$100</td></tr>
+          <tr><td><strong>Full system</strong><span class="sub">The core of a game</span></td>
+            <td class="what">Inventory and equipment, pets with hatching and fusing, rebirths and upgrades, quests and dialogue, round-based games, combat with abilities and cooldowns, trading.</td>
+            <td class="what">A clean module layout, saving and migrations built in, anti-exploit checks on the server, tuning values in one table, and milestone videos as each part lands.</td>
+            <td class="price">$250</td></tr>
+          <tr><td><strong>Build</strong><span class="sub">Maps and 3D art</span></td>
+            <td class="what">Lobbies, map areas, towns and props, low-poly to realistic, made in Blender or Studio to fit your game's art style.</td>
+            <td class="what">Grounded, scaled and lit in your place, kept within a part and triangle budget so it runs well on phones.</td>
+            <td class="price">$100</td></tr>
+          <tr><td><strong>Special request</strong><span class="sub">Anything not listed</span></td>
+            <td class="what">Something unusual, a mix of the above, or a whole feature set for your game. Describe it in the Special request form below.</td>
+            <td class="what">A custom quote with the full scope, milestones and a ready-by date before you pay anything.</td>
+            <td class="price">$100</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="label">Your look, built in</span>
+      <h2>We match your game's style</h2>
+      <p>Send us a screenshot of your game or a reference you like, and we build to it. Every piece of UI and art we make can take on your current theme, or we design a new one with you.</p>
+    </div>
+    <div class="styles">
+      <div><strong>Your theme</strong><span>Fantasy, sci-fi, cartoon, horror, cozy or bright simulator styles. We match your palette, fonts, corners and icon style so new screens look like they were always there.</span></div>
+      <div><strong>One-table theming</strong><span>Colours, fonts, sizes and spacing live in one theme table, so switching between light, dark or a seasonal event skin is a one-line change.</span></div>
+      <div><strong>Every screen size</strong><span>Layouts adapt to phones with notches, tablets, PCs, ultrawide monitors and TVs, and support touch, mouse, keyboard and controller.</span></div>
+      <div><strong>Performance first</strong><span>Closed windows cost nothing, effects pool and clean up after themselves, and a low-effects mode keeps older phones smooth.</span></div>
+    </div>
+  </section>
+
+  <section id="quote">
+    <div class="head">
+      <span class="label">Get a quote</span>
+      <h2>Not quite sure? Ask for a quote</h2>
+      <p>Fill this in, copy your request, and post it in #commission-requests on our Discord. Anything special goes in the Special request tab: it gets a custom price, starting at $100.</p>
+    </div>
+    <div class="quote">
+      <div class="tabs" role="tablist" aria-label="Request type">
+        <button type="button" role="tab" id="tab-job" aria-selected="true" aria-controls="form-quote">Standard job</button>
+        <button type="button" role="tab" id="tab-special" aria-selected="false" aria-controls="form-quote">Special request</button>
+      </div>
+      <form id="form-quote" role="tabpanel" aria-labelledby="tab-job" novalidate>
+        <div class="row" id="row-type">
+          <label for="q-type">Type of job</label>
+          <select id="q-type">
+            <option>Quick fix</option>
+            <option>Feature</option>
+            <option>UI screen</option>
+            <option>Full system</option>
+            <option>Build</option>
+            <option>Hourly block ($35/hour, 5+ hours)</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="row">
+          <label for="q-what" id="l-what">What do you need?</label>
+          <textarea id="q-what" rows="5" placeholder="Example: a shop window with 3 tabs and game pass buttons that works on phones"></textarea>
+        </div>
+        <div class="row" id="row-ref" hidden>
+          <label for="q-ref">Anything special we should know?</label>
+          <textarea id="q-ref" rows="3" placeholder="Reference games, screenshots you'll attach, systems it has to work with, must-haves"></textarea>
+        </div>
+        <div class="pair">
+          <div class="row">
+            <label for="q-budget">Budget (USD)</label>
+            <input id="q-budget" type="text" inputmode="decimal" placeholder="e.g. 150">
+          </div>
+          <div class="row">
+            <label for="q-date">Needed by</label>
+            <input id="q-date" type="text" placeholder="e.g. Nov 20, or no rush">
+          </div>
+        </div>
+        <div class="row">
+          <label for="q-game">Your game (link or name, optional)</label>
+          <input id="q-game" type="text" placeholder="roblox.com/games/...">
+        </div>
+        <p class="note" id="q-note">Standard jobs are quoted from the starter prices above.</p>
+        <p class="error" id="q-error" hidden>Tell us what you need first, then copy the request.</p>
+        <div class="actions">
+          <button type="submit" class="btn primary" id="q-copy">Copy my request</button>
+          <a class="btn ghost" href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">Open our Discord</a>
+        </div>
+        <div class="out" id="q-out-wrap" hidden>
+          <label for="q-out" id="q-status">Copied. Paste it in #commission-requests.</label>
+          <textarea id="q-out" rows="8" readonly></textarea>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="label">How it works</span>
+      <h2>From request to files</h2>
+    </div>
+    <ol class="steps">
+      <li><strong>Tell us</strong><span>Post what you need, your budget and deadline in #commission-requests.</span></li>
+      <li><strong>Get a quote</strong><span>What's included, the price and a ready-by date.</span></li>
+      <li><strong>Pay to start</strong><span>Under $100: paid up front. $100 to $500: half up front. Over $500: three milestones. PayPal Goods and Services.</span></li>
+      <li><strong>Watch it work</strong><span>A video of it running in Studio before each remaining payment.</span></li>
+      <li><strong>Get the files</strong><span>Sent once everything is paid. Clean, commented Luau, and our bugs fixed free for 14 days.</span></li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>Designed by Powla Games and built with AI-assisted tooling, then tested in Studio and finished by us. No exploits, cheats or anything against Roblox rules.</p>
+    <p>Discord: <a href="https://discord.gg/MrdpuS4SxW" target="_blank" rel="noopener">discord.gg/MrdpuS4SxW</a> · © 2026 Powla Games</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var tabs = { job: document.getElementById("tab-job"), special: document.getElementById("tab-special") };
+  var form = document.getElementById("form-quote");
+  var $ = function (id) { return document.getElementById(id); };
+  var mode = "job";
+
+  function setMode(next) {
+    mode = next;
+    tabs.job.setAttribute("aria-selected", String(next === "job"));
+    tabs.special.setAttribute("aria-selected", String(next === "special"));
+    form.setAttribute("aria-labelledby", next === "job" ? "tab-job" : "tab-special");
+    $("row-type").hidden = next === "special";
+    $("row-ref").hidden = next !== "special";
+    $("l-what").textContent = next === "special" ? "Describe your special request" : "What do you need?";
+    $("q-note").innerHTML = next === "special"
+      ? "Special requests get a <b>custom price, starting at $100</b>. You'll see the full scope and milestones before paying anything."
+      : "Standard jobs are quoted from the starter prices above.";
+  }
+  tabs.job.addEventListener("click", function () { setMode("job"); });
+  tabs.special.addEventListener("click", function () { setMode("special"); });
+  document.querySelector(".tabs").addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      var next = mode === "job" ? "special" : "job";
+      setMode(next); tabs[next].focus();
+    }
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var what = $("q-what").value.trim();
+    $("q-error").hidden = !!what;
+    if (!what) { $("q-what").focus(); return; }
+    var lines = [mode === "special" ? "**SPECIAL REQUEST** (custom price, from $100)" : "**QUOTE REQUEST: " + $("q-type").value + "**",
+      "What: " + what];
+    var ref = $("q-ref").value.trim();
+    if (mode === "special" && ref) lines.push("Special notes: " + ref);
+    lines.push("Budget: " + ($("q-budget").value.trim() ? "$" + $("q-budget").value.trim().replace(/^\$/, "") : "not sure"));
+    lines.push("Needed by: " + ($("q-date").value.trim() || "no date given"));
+    if ($("q-game").value.trim()) lines.push("Game: " + $("q-game").value.trim());
+    var text = lines.join("\n");
+    var out = $("q-out");
+    out.value = text;
+    $("q-out-wrap").hidden = false;
+    var done = function () { $("q-status").textContent = "Copied. Paste it in #commission-requests on our Discord."; };
+    var fallback = function () { out.focus(); out.select(); $("q-status").textContent = "Select this text and copy it, then paste it in #commission-requests."; };
+    try {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } catch (err) { fallback(); }
+  });
+})();
+</script>
+</body>
+</html>
